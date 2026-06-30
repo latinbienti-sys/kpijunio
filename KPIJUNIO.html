@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard TI LATINBIEN - Gestión de Tareas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@1.2.0/dist/chartjs-chart-matrix.umd.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(30, 58, 95, 0.3);
+        }
+        .header h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; }
+        .header p { opacity: 0.9; font-size: 1rem; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid;
+        }
+        .stat-card.completed { border-color: #22c55e; }
+        .stat-card.in-progress { border-color: #3b82f6; }
+        .stat-card.pending { border-color: #f59e0b; }
+        .stat-card.blocked { border-color: #ef4444; }
+        .stat-card.high { border-color: #ef4444; }
+        .stat-card.medium { border-color: #f59e0b; }
+        .stat-card.low { border-color: #22c55e; }
+        .stat-value { font-size: 2rem; font-weight: 700; line-height: 1; }
+        .stat-label { font-size: 0.85rem; color: #64748b; margin-top: 4px; }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .chart-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .chart-card.full-width { grid-column: 1 / -1; }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .chart-title { font-size: 1.1rem; font-weight: 600; color: #1e293b; }
+        .chart-subtitle { font-size: 0.8rem; color: #94a3b8; }
+        .chart-wrapper { position: relative; height: 300px; }
+        .chart-wrapper.large { height: 400px; }
+        .legend-custom {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: #475569;
+        }
+        .legend-color { width: 12px; height: 12px; border-radius: 3px; }
+        .table-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            overflow-x: auto;
+        }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { font-weight: 600; color: #334155; background: #f8fafc; }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-completed { background: #dcfce7; color: #166534; }
+        .badge-in-progress { background: #dbeafe; color: #1e40af; }
+        .badge-pending { background: #fef3c7; color: #92400e; }
+        .badge-blocked { background: #fee2e2; color: #991b1b; }
+        .badge-high { background: #fee2e2; color: #991b1b; }
+        .badge-medium { background: #fef3c7; color: #92400e; }
+        .badge-low { background: #dcfce7; color: #166534; }
+        .badge-critical { background: #fecaca; color: #7f1d1d; animation: pulse-badge 2s infinite; }
+        @keyframes pulse-badge {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .progress-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        .alerts-banner {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid #ef4444;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.15);
+        }
+        .alerts-banner h2 {
+            color: #991b1b;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .alerts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+        .alert-item {
+            background: white;
+            border-radius: 10px;
+            padding: 14px 16px;
+            border-left: 4px solid #ef4444;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .alert-item .alert-title { font-weight: 600; color: #1e293b; font-size: 0.9rem; }
+        .alert-item .alert-meta { font-size: 0.8rem; color: #64748b; margin-top: 4px; }
+        .alert-item .alert-meta strong { color: #ef4444; }
+        .completion-ring {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .ring-stat {
+            text-align: center;
+        }
+        .ring-stat .value { font-size: 1.8rem; font-weight: 700; }
+        .ring-stat .label { font-size: 0.75rem; color: #64748b; }
+        .ring-stat .value.green { color: #22c55e; }
+        .ring-stat .value.red { color: #ef4444; }
+        .ring-stat .value.amber { color: #f59e0b; }
+        .ring-stat .value.blue { color: #3b82f6; }
+        @media (max-width: 768px) {
+            .charts-grid { grid-template-columns: 1fr; }
+            .chart-wrapper { height: 280px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1>Dashboard TI LATINBIEN</h1>
+        <p>Gestión de Tareas · Junio 2026 · <span id="totalTasks">39</span> tareas registradas</p>
+    </header>
+
+    <div class="stats-grid" id="statsGrid">
+        <div class="stat-card completed">
+            <div class="stat-value" id="stat-completed">--</div>
+            <div class="stat-label">Completadas</div>
+        </div>
+        <div class="stat-card in-progress">
+            <div class="stat-value" id="stat-inprogress">--</div>
+            <div class="stat-label">En Curso</div>
+        </div>
+        <div class="stat-card pending">
+            <div class="stat-value" id="stat-pending">--</div>
+            <div class="stat-label">No Iniciadas</div>
+        </div>
+        <div class="stat-card blocked">
+            <div class="stat-value" id="stat-blocked">--</div>
+            <div class="stat-label">Bloqueadas</div>
+        </div>
+        <div class="stat-card high">
+            <div class="stat-value" id="stat-high">--</div>
+            <div class="stat-label">Urgencia Inmediata</div>
+        </div>
+        <div class="stat-card medium">
+            <div class="stat-value" id="stat-medium">--</div>
+            <div class="stat-label">Urgencia Media</div>
+        </div>
+        <div class="stat-card low">
+            <div class="stat-value" id="stat-low">--</div>
+            <div class="stat-label">Urgencia Baja</div>
+        </div>
+    </div>
+
+    <div class="alerts-banner" id="alertsBanner">
+        <h2>&#9888; Alertas Cr&iacute;ticas &mdash; Prioridad Inmediata No Completadas</h2>
+        <div class="alerts-grid" id="alertsGrid"></div>
+        <div style="margin-top:12px; font-size:0.85rem; color:#991b1b; background:#fecaca; padding:10px 14px; border-radius:8px;">
+            <strong>&#9200; Impacto:</strong> <span id="alertImpactText">Calculando...</span>
+        </div>
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Estado de Tareas</div>
+                    <div class="chart-subtitle">Distribuci&oacute;n por estado actual</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartStatus"></canvas>
+            </div>
+            <div class="legend-custom" id="legendStatus"></div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Prioridad / Urgencia</div>
+                    <div class="chart-subtitle">Distribuci&oacute;n por nivel de urgencia</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartPriority"></canvas>
+            </div>
+            <div class="legend-custom" id="legendPriority"></div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Estado &times; Prioridad</div>
+                    <div class="chart-subtitle">Matriz de riesgo: cruce de dimensiones</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartHeatmap"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Tendencia Semanal (Junio)</div>
+                    <div class="chart-subtitle">Tareas completadas por semana</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartTrend"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card full-width">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Categor&iacute;as de Tareas</div>
+                    <div class="chart-subtitle">Distribuci&oacute;n por &aacute;rea funcional</div>
+                </div>
+            </div>
+            <div class="chart-wrapper large">
+                <canvas id="chartCategories"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card full-width">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">L&iacute;nea de Tiempo &mdash; Tareas Cr&iacute;ticas</div>
+                    <div class="chart-subtitle">Gantt simplificado: tareas prioritarias con fechas</div>
+                </div>
+            </div>
+            <div class="chart-wrapper large">
+                <canvas id="chartGantt"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <h3 style="margin-bottom: 16px; color: #1e293b;">&#9888; Tareas Cr&iacute;ticas &mdash; Acci&oacute;n Requerida</h3>
+        <table id="criticalTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tarea</th>
+                    <th>Categor&iacute;a</th>
+                    <th>Prioridad</th>
+                    <th>Estado</th>
+                    <th>Inicio</th>
+                    <th>D&iacute;as sin avance</th>
+                    <th>Riesgo</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="table-card" style="margin-top: 24px;">
+        <h3 style="margin-bottom: 16px; color: #1e293b;">&#128203; Detalle Completo de Tareas</h3>
+        <table id="fullTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tarea</th>
+                    <th>Categor&iacute;a</th>
+                    <th>Prioridad</th>
+                    <th>Estado</th>
+                    <th>Hito</th>
+                    <th>Notas</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+const tasks = [
+    {id:1, task:"Revisar pasarela de pago", cat:"Pagos", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"11/06/2026", end:"11/06/2026", milestone:"Configuraci&oacute;n pasarela", notes:"Revisar pasarela de pago"},
+    {id:2, task:"Preparaci&oacute;n motores de b&uacute;squeda y optimizaci&oacute;n SEO", cat:"SEO/Web", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"12/06/2026", end:"12/06/2026", milestone:"SEO t&eacute;cnico", notes:"SEO t&eacute;cnico"},
+    {id:3, task:"CRM - Formularios web Honda M&eacute;rida", cat:"CRM/Integraci&oacute;n", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"13/06/2026", end:"13/06/2026", milestone:"Integraci&oacute;n CRM tiempo real <2min", notes:"Integraci&oacute;n CRM tiempo real <2min"},
+    {id:4, task:"Integraci&oacute;n CRM tiempo real (<2 min)", cat:"CRM/Integraci&oacute;n", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"13/06/2026", end:"13/06/2026", milestone:"CRM tiempo real", notes:"CRM tiempo real"},
+    {id:5, task:"Hyundai", cat:"Marcas", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"13/06/2026", end:"", milestone:"", notes:""},
+    {id:6, task:"Simulador ARCA", cat:"Simuladores", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"17/06/2026", end:"17/06/2026", milestone:"Simulador desplegado", notes:"Simulador ARCA desplegado"},
+    {id:7, task:"Configuraci&oacute;n Chatroom comercial", cat:"Chatroom", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"18/06/2026", end:"", milestone:"Chatroom comercial", notes:"Configuraci&oacute;n chatroom comercial"},
+    {id:8, task:"Integraci&oacute;n formulario web Leads Honda", cat:"CRM/Integraci&oacute;n", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"18/06/2026", end:"18/06/2026", milestone:"Formulario leads Honda", notes:"Formulario web leads Honda"},
+    {id:9, task:"Configuraci&oacute;n Gohlevel CRM automatizaciones", cat:"CRM/Integraci&oacute;n", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"18/06/2026", end:"", milestone:"Automatizaciones CRM", notes:"Gohlevel CRM automatizaciones"},
+    {id:10, task:"Inventario motors", cat:"Motors/Inventario", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"18/06/2026", end:"", milestone:"Inventario motors", notes:"Inventario motors"},
+    {id:11, task:"Facturaci&oacute;n motors", cat:"Motors/Inventario", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"18/06/2026", end:"", milestone:"Facturaci&oacute;n motors", notes:"Facturaci&oacute;n motors"},
+    {id:12, task:"Documentaci&oacute;n chatroom", cat:"Chatroom", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"18/06/2026", end:"", milestone:"Docs chatroom", notes:"Documentaci&oacute;n chatroom"},
+    {id:13, task:"Revisi&oacute;n pasarela de pago", cat:"Pagos", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"18/06/2026", end:"", milestone:"Revisi&oacute;n pagos", notes:"Revisi&oacute;n pasarela de pago"},
+    {id:14, task:"Revisi&oacute;n pagos Motors", cat:"Pagos", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"18/06/2026", end:"", milestone:"Pagos motors", notes:"Revisi&oacute;n pagos motors"},
+    {id:15, task:"Automatizaci&oacute;n Banco Tesoro", cat:"Automatizaci&oacute;n", priority:"Inmediata", status:"No iniciada", owner:"TI LATINBIEN", start:"18/06/2026", end:"", milestone:"Auto Banco Tesoro", notes:"Automatizaci&oacute;n Banco Tesoro"},
+    {id:16, task:"Chatroom comercial", cat:"Chatroom", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"19/06/2026", end:"", milestone:"Chatroom comercial", notes:"Chatroom comercial"},
+    {id:17, task:"Configuraci&oacute;n Gohlevel", cat:"CRM/Integraci&oacute;n", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"19/06/2026", end:"", milestone:"Gohlevel config", notes:"Configuraci&oacute;n Gohlevel"},
+    {id:18, task:"Reforzamiento compras", cat:"Compras", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"19/06/2026", end:"", milestone:"Compras", notes:"Reforzamiento compras"},
+    {id:19, task:"Personalizaci&oacute;n motors", cat:"Motors/Inventario", priority:"Baja", status:"En curso", owner:"TI LATINBIEN", start:"19/06/2026", end:"", milestone:"Personalizaci&oacute;n motors", notes:"Personalizaci&oacute;n motors"},
+    {id:20, task:"Promoci&oacute;n Tecnogolazo 10%", cat:"Promociones", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"20/06/2026", end:"20/06/2026", milestone:"Promo 10%", notes:"Promoci&oacute;n Tecnogolazo 10% configurada y validada"},
+    {id:21, task:"M&oacute;dulo mantenimiento", cat:"Mantenimiento", priority:"Baja", status:"No iniciada", owner:"TI LATINBIEN", start:"20/06/2026", end:"", milestone:"M&oacute;dulo mantenimiento", notes:"M&oacute;dulo mantenimiento"},
+    {id:22, task:"Macro Cobranza", cat:"Cobranza", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"24/06/2026", end:"24/06/2026", milestone:"Macro cobranza", notes:"Macro Cobranza completada"},
+    {id:23, task:"Ticket 149 CXC", cat:"Cobranza", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"24/06/2026", end:"24/06/2026", milestone:"Ticket CXC", notes:"Ticket 149 CXC resuelto"},
+    {id:24, task:"Ca&iacute;da Odoo resuelta 12 min", cat:"Infraestructura", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"25/06/2026", end:"25/06/2026", milestone:"Incidente Odoo", notes:"Ca&iacute;da Odoo resuelta en 12 min (18:19-18:31)"},
+    {id:25, task:"Sede Rodeo internet - Falla proveedor", cat:"Infraestructura", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"25/06/2026", end:"25/06/2026", milestone:"Conectividad sede", notes:"Falla general y mayor consumo ancho de banda por proveedor"},
+    {id:26, task:"Chatroom cobranza - Incidencias env&iacute;o/recepci&oacute;n", cat:"Chatroom", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"29/06/2026", end:"", milestone:"Chatroom cobranza", notes:"Incidencias en env&iacute;o y recepci&oacute;n de mensajes"},
+    {id:27, task:"Formulario motors", cat:"Motors/Inventario", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:28, task:"Tableros Motors", cat:"Reportes", priority:"Media", status:"No iniciada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:29, task:"Cat&aacute;logo web multimoneda", cat:"Web", priority:"Media", status:"No iniciada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:30, task:"Configuraci&oacute;n chatroom cobranza", cat:"Chatroom", priority:"Inmediata", status:"No iniciada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:31, task:"Integraci&oacute;n CRM tiempo real", cat:"CRM/Integraci&oacute;n", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"13/06/2026", end:"13/06/2026", milestone:"CRM <2min", notes:"Integraci&oacute;n CRM tiempo real <2min"},
+    {id:32, task:"Optimizaci&oacute;n SEO motores b&uacute;squeda", cat:"SEO/Web", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"12/06/2026", end:"12/06/2026", milestone:"SEO", notes:"Optimizaci&oacute;n SEO"},
+    {id:33, task:"Automatizaciones Gohlevel CRM", cat:"CRM/Integraci&oacute;n", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"18/06/2026", end:"", milestone:"Automatizaciones", notes:"Automatizaciones Gohlevel CRM"},
+    {id:34, task:"Validaci&oacute;n promociones web", cat:"Promociones", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"20/06/2026", end:"20/06/2026", milestone:"Promo validada", notes:"Promoci&oacute;n Tecnogolazo 10% validada"},
+    {id:35, task:"Resoluci&oacute;n incidencias infraestructura", cat:"Infraestructura", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"25/06/2026", end:"25/06/2026", milestone:"Infra OK", notes:"Ca&iacute;da Odoo y conectividad sede resueltas"},
+    {id:36, task:"Gesti&oacute;n chatroom cobranza", cat:"Chatroom", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"29/06/2026", end:"", milestone:"Chatroom cobranza", notes:"Gesti&oacute;n chatroom cobranza"},
+    {id:37, task:"Desbloqueo Hyundai", cat:"Marcas", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"13/06/2026", end:"", milestone:"Hyundai OK", notes:"Desbloqueo Hyundai"},
+    {id:38, task:"Desbloqueo pagos Motors", cat:"Pagos", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"18/06/2026", end:"", milestone:"Pagos Motors OK", notes:"Desbloqueo pagos motors"},
+    {id:39, task:"Finalizar m&oacute;dulo mantenimiento", cat:"Mantenimiento", priority:"Baja", status:"No iniciada", owner:"TI LATINBIEN", start:"20/06/2026", end:"", milestone:"M&oacute;dulo mantenimiento", notes:"Finalizar m&oacute;dulo mantenimiento"}
+];
+
+const statusColors = {
+    "Completada": "#22c55e",
+    "En curso": "#3b82f6",
+    "No iniciada": "#f59e0b",
+    "Bloqueada": "#ef4444"
+};
+const priorityColors = {
+    "Inmediata": "#ef4444",
+    "Media": "#f59e0b",
+    "Baja": "#22c55e"
+};
+const statusOrder = ["Completada", "En curso", "No iniciada", "Bloqueada"];
+const priorityOrder = ["Inmediata", "Media", "Baja"];
+
+function countBy(arr, key) {
+    const r = {};
+    arr.forEach(t => { r[t[key]] = (r[t[key]] || 0) + 1; });
+    return r;
+}
+
+function parseDate(d) {
+    if (!d) return null;
+    const parts = d.split("/");
+    if (parts.length === 3) return new Date(+parts[2], +parts[1] - 1, +parts[0]);
+    return null;
+}
+
+function daysSince(dateStr) {
+    const d = parseDate(dateStr);
+    if (!d || isNaN(d.getTime())) return null;
+    const diff = Date.now() - d.getTime();
+    return Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
+}
+
+function weekOfJune(dateStr) {
+    const d = parseDate(dateStr);
+    if (!d) return null;
+    const day = d.getDate();
+    if (day <= 7) return "Sem 1 (1-7 Jun)";
+    if (day <= 14) return "Sem 2 (8-14 Jun)";
+    if (day <= 21) return "Sem 3 (15-21 Jun)";
+    if (day <= 28) return "Sem 4 (22-28 Jun)";
+    return "Sem 5 (29 Jun+)";
+}
+
+const statusCounts = countBy(tasks, 'status');
+const priorityCounts = countBy(tasks, 'priority');
+const totalTasks = tasks.length;
+
+const completed = statusCounts["Completada"] || 0;
+const inProgress = statusCounts["En curso"] || 0;
+const pending = statusCounts["No iniciada"] || 0;
+const blocked = statusCounts["Bloqueada"] || 0;
+const high = priorityCounts["Inmediata"] || 0;
+const med = priorityCounts["Media"] || 0;
+const low = priorityCounts["Baja"] || 0;
+
+function pct(v) { return Math.round((v / totalTasks) * 100); }
+
+document.getElementById("stat-completed").textContent = completed + " (" + pct(completed) + "%)";
+document.getElementById("stat-inprogress").textContent = inProgress + " (" + pct(inProgress) + "%)";
+document.getElementById("stat-pending").textContent = pending + " (" + pct(pending) + "%)";
+document.getElementById("stat-blocked").textContent = blocked + " (" + pct(blocked) + "%)";
+document.getElementById("stat-high").textContent = high + " (" + pct(high) + "%)";
+document.getElementById("stat-medium").textContent = med + " (" + pct(med) + "%)";
+document.getElementById("stat-low").textContent = low + " (" + pct(low) + "%)";
+
+// --- ALERTS BANNER ---
+const immediateNotCompleted = tasks.filter(t => t.priority === "Inmediata" && t.status !== "Completada");
+const alertsGrid = document.getElementById("alertsGrid");
+immediateNotCompleted.forEach(t => {
+    const ds = daysSince(t.start);
+    const daysStr = (ds !== null && ds !== undefined) ? ds + " d&iacute;as" : "Sin fecha";
+    const div = document.createElement("div");
+    div.className = "alert-item";
+    div.innerHTML = '<div class="alert-title">' + t.task + '</div>' +
+        '<div class="alert-meta">' + t.cat + ' &middot; <strong>' + t.status + '</strong> &middot; ' + daysStr + '</div>';
+    alertsGrid.appendChild(div);
+});
+
+const pctBlocked = Math.round((blocked / totalTasks) * 100);
+document.getElementById("alertImpactText").innerHTML =
+    "<b>8 tareas</b> de prioridad inmediata sin completar (" +
+    immediateNotCompleted.filter(t => t.status === "No iniciada").length + " no iniciadas, " +
+    immediateNotCompleted.filter(t => t.status === "En curso").length + " en curso). " +
+    "Esto representa el " + pct(high - immediateNotCompleted.length) + "% de las tareas inmediatas completadas. " +
+    "Riesgo operativo: <b>" + pctBlocked + "% del backlog total est&aacute; bloqueado</b>.";
+
+// --- CHART 1: Status Donut ---
+new Chart(document.getElementById('chartStatus'), {
+    type: 'doughnut',
+    data: {
+        labels: statusOrder,
+        datasets: [{
+            data: statusOrder.map(s => statusCounts[s] || 0),
+            backgroundColor: statusOrder.map(s => statusColors[s]),
+            borderWidth: 0,
+            cutout: '65%'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) {
+                        const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                        const p = Math.round((ctx.parsed / total) * 100);
+                        return ctx.label + ": " + ctx.parsed + " (" + p + "%)";
+                    }
+                }
+            }
+        }
+    }
+});
+const legendStatus = document.getElementById("legendStatus");
+statusOrder.forEach(s => {
+    const item = document.createElement("div");
+    item.className = "legend-item";
+    item.innerHTML = '<span class="legend-color" style="background:' + statusColors[s] + '"></span> ' + s + ' (' + (statusCounts[s] || 0) + ')';
+    legendStatus.appendChild(item);
+});
+
+// --- CHART 2: Priority Donut ---
+new Chart(document.getElementById('chartPriority'), {
+    type: 'doughnut',
+    data: {
+        labels: priorityOrder,
+        datasets: [{
+            data: priorityOrder.map(p => priorityCounts[p] || 0),
+            backgroundColor: priorityOrder.map(p => priorityColors[p]),
+            borderWidth: 0,
+            cutout: '65%'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) {
+                        const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                        const p = Math.round((ctx.parsed / total) * 100);
+                        return ctx.label + ": " + ctx.parsed + " (" + p + "%)";
+                    }
+                }
+            }
+        }
+    }
+});
+const legendPriority = document.getElementById("legendPriority");
+priorityOrder.forEach(p => {
+    const item = document.createElement("div");
+    item.className = "legend-item";
+    item.innerHTML = '<span class="legend-color" style="background:' + priorityColors[p] + '"></span> ' + p + ' (' + (priorityCounts[p] || 0) + ')';
+    legendPriority.appendChild(item);
+});
+
+// --- CHART 3: Heatmap (manual bar-based) ---
+const heatCtx = document.getElementById('chartHeatmap').getContext('2d');
+const heatLabels = [];
+const heatData = [];
+const heatColors = [];
+statusOrder.forEach(s => {
+    priorityOrder.forEach(p => {
+        const count = tasks.filter(t => t.status === s && t.priority === p).length;
+        heatLabels.push(s + " / " + p);
+        heatData.push(count);
+        if (s === "No iniciada" && p === "Inmediata") {
+            heatColors.push("#dc2626");
+        } else if (s === "Bloqueada" && p === "Inmediata") {
+            heatColors.push("#dc2626");
+        } else if (s === "En curso" && p === "Inmediata") {
+            heatColors.push("#f87171");
+        } else if (s === "Bloqueada") {
+            heatColors.push("#fca5a5");
+        } else if (s === "No iniciada") {
+            heatColors.push("#fcd34d");
+        } else if (s === "Completada") {
+            heatColors.push("#86efac");
+        } else {
+            heatColors.push("#93c5fd");
+        }
+    });
+});
+new Chart(heatCtx, {
+    type: 'bar',
+    data: {
+        labels: heatLabels,
+        datasets: [{
+            label: 'Tareas',
+            data: heatData,
+            backgroundColor: heatColors,
+            borderColor: heatColors.map(c => c),
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        indexAxis: 'y',
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    afterLabel: function(ctx) {
+                        const parts = ctx.label.split(" / ");
+                        if (parts[0] === "No iniciada" && parts[1] === "Inmediata") return "&#9888; CR&Iacute;TICO: Acci&oacute;n urgente";
+                        if (parts[0] === "Bloqueada") return "&#9888; BLOQUEADO: Requiere desbloqueo";
+                        return "";
+                    }
+                }
+            }
+        },
+        scales: {
+            x: { beginAtZero: true, title: { display: true, text: "Cantidad de tareas" } },
+            y: { title: { display: true, text: "Estado / Prioridad" } }
+        }
+    }
+});
+
+// --- CHART 4: Trend ---
+const weeks = ["Sem 2 (8-14 Jun)", "Sem 3 (15-21 Jun)", "Sem 4 (22-28 Jun)", "Sem 5 (29 Jun+)"];
+const weekCounts = {};
+tasks.filter(t => t.status === "Completada").forEach(t => {
+    const w = weekOfJune(t.end);
+    if (w) weekCounts[w] = (weekCounts[w] || 0) + 1;
+});
+const trendData = weeks.map(w => weekCounts[w] || 0);
+new Chart(document.getElementById('chartTrend'), {
+    type: 'line',
+    data: {
+        labels: weeks,
+        datasets: [{
+            label: 'Completadas',
+            data: trendData,
+            borderColor: '#22c55e',
+            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#22c55e',
+            pointRadius: 5
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) { return ctx.parsed.y + " tareas completadas"; }
+                }
+            }
+        },
+        scales: {
+            y: { beginAtZero: true, title: { display: true, text: "Tareas" } }
+        }
+    }
+});
+
+// --- CHART 5: Categories Bar ---
+const catCounts = countBy(tasks, 'cat');
+const sortedCats = Object.entries(catCounts).sort((a, b) => b[1] - a[1]);
+const catLabels = sortedCats.map(c => c[0]);
+const catValues = sortedCats.map(c => c[1]);
+const catColors = catLabels.map(c => {
+    if (c === "Chatroom" || c === "Marcas") return "#ef4444";
+    if (c === "Pagos" || c === "Motors/Inventario") return "#f59e0b";
+    if (c === "CRM/Integración" || c === "Infraestructura") return "#3b82f6";
+    return "#22c55e";
+});
+new Chart(document.getElementById('chartCategories'), {
+    type: 'bar',
+    data: {
+        labels: catLabels,
+        datasets: [{
+            label: 'Tareas',
+            data: catValues,
+            backgroundColor: catColors,
+            borderRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        indexAxis: 'y',
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) { return ctx.parsed.x + " tareas"; }
+                }
+            }
+        },
+        scales: {
+            x: { beginAtZero: true, title: { display: true, text: "Cantidad de tareas" } },
+            y: { title: { display: true, text: "Categor&iacute;a" } }
+        }
+    }
+});
+
+// --- CHART 6: Simple Gantt-like for critical tasks ---
+const criticalTasks = tasks.filter(t => t.priority === "Inmediata" && t.status !== "Completada" && t.start);
+criticalTasks.sort((a, b) => (parseDate(a.start) || 0) - (parseDate(b.start) || 0));
+const ganttLabels = criticalTasks.map(t => t.task.substring(0, 35) + (t.task.length > 35 ? "..." : ""));
+const ganttStarts = criticalTasks.map(t => {
+    const d = parseDate(t.start);
+    return d ? d.getTime() : 0;
+});
+const now = Date.now();
+const minTime = Math.min(...ganttStarts.filter(s => s > 0));
+const maxTime = Math.max(now, ...ganttStarts.filter(s => s > 0));
+const range = maxTime - minTime || 1;
+const ganttData = criticalTasks.map((t, i) => {
+    const start = parseDate(t.start);
+    const end = parseDate(t.end);
+    const s = start ? start.getTime() : minTime;
+    const e = end ? end.getTime() : now;
+    return {
+        x: [(s - minTime) / range * 100, (e - minTime) / range * 100],
+        y: i,
+        status: t.status
+    };
+});
+new Chart(document.getElementById('chartGantt'), {
+    type: 'bar',
+    data: {
+        labels: ganttLabels,
+        datasets: criticalTasks.map((t, i) => ({
+            label: t.task,
+            data: [{
+                x: (parseDate(t.start) ? (parseDate(t.start).getTime() - minTime) / range * 100 : 0),
+                y: 1
+            }],
+            backgroundColor: t.status === "En curso" ? "#f87171" : "#dc2626",
+            borderColor: t.status === "En curso" ? "#b91c1c" : "#991b1b",
+            borderWidth: 1,
+            barPercentage: 0.6
+        }))
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        indexAxis: 'y',
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) {
+                        const t = criticalTasks[ctx.dataIndex];
+                        return t.task + " | " + t.status + " | Inicio: " + t.start;
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                min: 0,
+                max: 100,
+                ticks: {
+                    callback: function(v) {
+                        const d = new Date(minTime + (v / 100) * range);
+                        return d.getDate() + "/" + (d.getMonth() + 1);
+                    }
+                },
+                title: { display: true, text: "Junio 2026" }
+            },
+            y: { display: false }
+        }
+    }
+});
+
+// --- CRITICAL TABLE ---
+const criticalBody = document.querySelector("#criticalTable tbody");
+const criticalRows = tasks.filter(t => t.priority === "Inmediata" && t.status !== "Completada");
+criticalRows.forEach(t => {
+    const ds = daysSince(t.start);
+    const daysStr = (ds !== null && ds !== undefined) ? ds : "N/A";
+    const riskClass = t.status === "No iniciada" ? "badge-critical" : (t.status === "En curso" && ds > 7 ? "badge-critical" : "");
+    const riskLabel = t.status === "No iniciada" ? "CR&Iacute;TICO" : (t.status === "En curso" && ds > 7 ? "ALTO" : "MEDIO");
+    const tr = document.createElement("tr");
+    tr.innerHTML = '<td>' + t.id + '</td>' +
+        '<td>' + t.task + '</td>' +
+        '<td>' + t.cat + '</td>' +
+        '<td><span class="badge badge-high">Inmediata</span></td>' +
+        '<td><span class="badge ' + (t.status === "En curso" ? "badge-in-progress" : "badge-pending") + '">' + t.status + '</span></td>' +
+        '<td>' + (t.start || "—") + '</td>' +
+        '<td>' + daysStr + '</td>' +
+        '<td><span class="badge ' + riskClass + '">' + riskLabel + '</span></td>';
+    criticalBody.appendChild(tr);
+});
+
+// --- FULL TABLE ---
+const fullBody = document.querySelector("#fullTable tbody");
+tasks.forEach(t => {
+    const statusBadge = t.status === "Completada" ? "badge-completed" :
+        (t.status === "En curso" ? "badge-in-progress" :
+        (t.status === "No iniciada" ? "badge-pending" : "badge-blocked"));
+    const priorityBadge = t.priority === "Inmediata" ? "badge-high" :
+        (t.priority === "Media" ? "badge-medium" : "badge-low");
+    const tr = document.createElement("tr");
+    tr.innerHTML = '<td>' + t.id + '</td>' +
+        '<td>' + t.task + '</td>' +
+        '<td>' + t.cat + '</td>' +
+        '<td><span class="badge ' + priorityBadge + '">' + t.priority + '</span></td>' +
+        '<td><span class="badge ' + statusBadge + '">' + t.status + '</span></td>' +
+        '<td>' + (t.milestone || "—") + '</td>' +
+        '<td>' + (t.notes || "—") + '</td>';
+    fullBody.appendChild(tr);
+});
+</script>
+</body>
+</html>
