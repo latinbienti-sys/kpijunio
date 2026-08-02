@@ -381,6 +381,26 @@
         <h2 style="color: #1e3a5f; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
             📊 Informe de Desempeño y Análisis Operativo
         </h2>
+    <!-- RELACION PORCENTUAL DE DESEMPENO -->
+    <div style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 24px;">
+        <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 6px;">📊 Relación Porcentual de Desempeño y Análisis Operativo</h3>
+        <p style="color:#64748b; font-size:0.8rem; margin-bottom: 14px;" id="perfResumen">Calculando...</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Tasa de Cumplimiento Global</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplimiento"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Cumplimiento por Urgencia (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplUrgencia"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Distribución de Estados (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartAvance"></canvas></div>
+            </div>
+        </div>
+    </div>
+
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; line-height: 1.6; font-size: 0.9rem;">
             
@@ -586,6 +606,26 @@
         <h2 style="color: #1e3a5f; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
             📊 Informe de Desempeño y Análisis Operativo
         </h2>
+    <!-- RELACION PORCENTUAL DE DESEMPENO -->
+    <div style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 24px;">
+        <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 6px;">📊 Relación Porcentual de Desempeño y Análisis Operativo</h3>
+        <p style="color:#64748b; font-size:0.8rem; margin-bottom: 14px;" id="perfResumenJ">Calculando...</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Tasa de Cumplimiento Global</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplimientoJ"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Cumplimiento por Urgencia (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplUrgenciaJ"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Distribución de Estados (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartAvanceJ"></canvas></div>
+            </div>
+        </div>
+    </div>
+
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; line-height: 1.6; font-size: 0.9rem;">
 
@@ -708,7 +748,7 @@ const tasksJulio = [
     {id:31, task:"creacion modulo clublatinbien", cat:"Membresía", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"13/07/2026", end:"30/07/2026", milestone:"Se creo modulo club latinbien", notes:""},
     {id:32, task:"tablero Contador de contratos", cat:"Reportes", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"13/07/2026", end:"25/07/2026", milestone:"Solo queda limpiar data en proceso en platarforma creado tablero", notes:""},
     {id:33, task:"Configuracion almacen AVERIAS", cat:"Almacén", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"16/07/2026", end:"16/07/2026", milestone:"Creado almacen de averias", notes:""},
-    {id:34, task:"Revision bot latinbienCA", cat:"Chatroom", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"16/07/2026", end:"", milestone:"REvisiion lia a detalle para activar", notes:""},
+    {id:34, task:"Revision bot latinbienCA", cat:"Chatroom", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"16/07/2026", end:"", milestone:"REvisiion lia a detalle para activar", notes:""},
     {id:35, task:"analisisdatos trabajador/contador contratos", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"14/07/2026", end:"", milestone:"visual data", notes:""},
     {id:36, task:"sEguimiento ticket Master", cat:"Soporte", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"1/07/2026", end:"28/07/2026", milestone:"Segimiento tickets", notes:""},
     {id:37, task:"Ticket 232", cat:"Soporte", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"29/07/2026", end:"31/07/2026", milestone:"ALMACENAMIENTO CORREO MVERA.LATINBIEN@GMAIL.COM", notes:""},
@@ -1145,6 +1185,110 @@ function renderDashboard(prefix, taskList, monthLabel, monthShort, catColorFn) {
             '<td>' + (t.milestone || "—") + '</td>' +
             '<td>' + (t.notes || "—") + '</td>';
         fullBody.appendChild(tr);
+    });
+
+    // --- RELACION PORCENTUAL DE DESEMPENO (Informe) ---
+    const urgImmediateTotal = taskList.filter(t => t.priority === "Inmediata").length;
+    const urgImmediateDone = taskList.filter(t => t.priority === "Inmediata" && t.status === "Completada").length;
+    const urgImmediatePct = urgImmediateTotal ? Math.round((urgImmediateDone / urgImmediateTotal) * 100) : 0;
+    const compPct = totalTasks ? Math.round((completed / totalTasks) * 100) : 0;
+    const pendPct = 100 - compPct;
+
+    const perfResumen = document.getElementById("perfResumen" + prefix);
+    if (perfResumen) {
+        perfResumen.innerHTML =
+            "Tasa de cumplimiento global: <strong>" + compPct + "%</strong> &middot; " +
+            "Pendientes: <strong>" + pendPct + "%</strong> &middot; " +
+            "Urgencia inmediata completada: <strong>" + urgImmediatePct + "%</strong> &middot; " +
+            "Bloqueadas: <strong>" + Math.round((blocked / totalTasks) * 100) + "%</strong>.";
+    }
+
+    new Chart(document.getElementById('chartCumplimiento' + prefix), {
+        type: 'doughnut',
+        data: {
+            labels: ['Completadas', 'Pendientes'],
+            datasets: [{
+                data: [compPct, pendPct],
+                backgroundColor: ['#22c55e', '#e2e8f0'],
+                borderWidth: 0,
+                cutout: '68%'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) { return ctx.label + ": " + ctx.parsed + "%"; }
+                    }
+                }
+            }
+        }
+    });
+
+    const urgLabels = [];
+    const urgData = [];
+    const urgColors = [];
+    priorityOrder.forEach(p => {
+        const totalU = taskList.filter(t => t.priority === p).length;
+        const doneU = taskList.filter(t => t.priority === p && t.status === "Completada").length;
+        const pctU = totalU ? Math.round((doneU / totalU) * 100) : 0;
+        urgLabels.push(p);
+        urgData.push(pctU);
+        urgColors.push(pctU >= 70 ? "#22c55e" : (pctU >= 40 ? "#f59e0b" : "#ef4444"));
+    });
+    new Chart(document.getElementById('chartCumplUrgencia' + prefix), {
+        type: 'bar',
+        data: {
+            labels: urgLabels,
+            datasets: [{
+                label: '% cumplimiento',
+                data: urgData,
+                backgroundColor: urgColors,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) { return ctx.parsed.y + "% completadas"; }
+                    }
+                }
+            },
+            scales: {
+                y: { beginAtZero: true, max: 100, ticks: { callback: function(v) { return v + "%"; } } }
+            }
+        }
+    });
+
+    const estadoPct = statusOrder.map((s, i) => totalTasks ? Math.round(((statusCounts[s] || 0) / totalTasks) * 100) : 0);
+    new Chart(document.getElementById('chartAvance' + prefix), {
+        type: 'bar',
+        data: {
+            labels: ['Distribución'],
+            datasets: statusOrder.map((s, i) => ({
+                label: s,
+                data: [estadoPct[i]],
+                backgroundColor: statusColors[s],
+                stack: 's'
+            }))
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            indexAxis: 'y',
+            plugins: { legend: { position: 'bottom' } },
+            scales: {
+                x: { stacked: true, max: 100, ticks: { callback: function(v) { return v + "%"; } } },
+                y: { stacked: true, display: false }
+            }
+        }
     });
 }
 
