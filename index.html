@@ -222,6 +222,7 @@
     <div class="tabs" role="tablist">
         <button class="tab-btn active" data-tab="junio" role="tab">Junio 2026</button>
         <button class="tab-btn" data-tab="julio" role="tab">Julio 2026</button>
+        <button class="tab-btn" data-tab="agosto" role="tab">Agosto 2026</button>
     </div>
 
     <div id="panel-junio" class="tab-panel active">
@@ -669,6 +670,228 @@
     </div>
 
     </div>
+
+    <!-- PANEL AGOSTO 2026 -->
+    <div id="panel-agosto" class="tab-panel">
+<div class="stats-grid" id="statsGridA">
+        <div class="stat-card completed">
+            <div class="stat-value" id="stat-completedA">--</div>
+            <div class="stat-label">Completadas</div>
+        </div>
+        <div class="stat-card in-progress">
+            <div class="stat-value" id="stat-inprogressA">--</div>
+            <div class="stat-label">En Curso</div>
+        </div>
+        <div class="stat-card pending">
+            <div class="stat-value" id="stat-pendingA">--</div>
+            <div class="stat-label">No Iniciadas</div>
+        </div>
+        <div class="stat-card blocked">
+            <div class="stat-value" id="stat-blockedA">--</div>
+            <div class="stat-label">Bloqueadas</div>
+        </div>
+        <div class="stat-card high">
+            <div class="stat-value" id="stat-highA">--</div>
+            <div class="stat-label">Urgencia Inmediata</div>
+        </div>
+        <div class="stat-card medium">
+            <div class="stat-value" id="stat-mediumA">--</div>
+            <div class="stat-label">Urgencia Media</div>
+        </div>
+        <div class="stat-card low">
+            <div class="stat-value" id="stat-lowA">--</div>
+            <div class="stat-label">Urgencia Baja</div>
+        </div>
+    </div>
+
+    <div class="alerts-banner" id="alertsBannerA">
+        <h2>&#9888; Alertas Cr&iacute;ticas &mdash; Prioridad Inmediata No Completadas</h2>
+        <div class="alerts-grid" id="alertsGridA"></div>
+        <div style="margin-top:12px; font-size:0.85rem; color:#991b1b; background:#fecaca; padding:10px 14px; border-radius:8px;">
+            <strong>&#9200; Impacto:</strong> <span id="alertImpactTextA">Calculando...</span>
+        </div>
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Estado de Tareas</div>
+                    <div class="chart-subtitle">Distribuci&oacute;n por estado actual</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartStatusA"></canvas>
+            </div>
+            <div class="legend-custom" id="legendStatusA"></div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Prioridad / Urgencia</div>
+                    <div class="chart-subtitle">Distribuci&oacute;n por nivel de urgencia</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartPriorityA"></canvas>
+            </div>
+            <div class="legend-custom" id="legendPriorityA"></div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Estado &times; Prioridad</div>
+                    <div class="chart-subtitle">Matriz de riesgo: cruce de dimensiones</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartHeatmapA"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Tendencia Semanal (Agosto)</div>
+                    <div class="chart-subtitle">Tareas completadas por semana</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartTrendA"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card full-width">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Categor&iacute;as de Tareas</div>
+                    <div class="chart-subtitle">Distribuci&oacute;n por &aacute;rea funcional</div>
+                </div>
+            </div>
+            <div class="chart-wrapper large">
+                <canvas id="chartCategoriesA"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card full-width">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">L&iacute;nea de Tiempo &mdash; Tareas Cr&iacute;ticas</div>
+                    <div class="chart-subtitle">Gantt simplificado: tareas prioritarias con fechas</div>
+                </div>
+            </div>
+            <div class="chart-wrapper large">
+                <canvas id="chartGanttA"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <h3 style="margin-bottom: 16px; color: #1e293b;">&#9888; Tareas Cr&iacute;ticas &mdash; Acci&oacute;n Requerida</h3>
+        <table id="criticalTableA">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tarea</th>
+                    <th>Categor&iacute;a</th>
+                    <th>Prioridad</th>
+                    <th>Estado</th>
+                    <th>Inicio</th>
+                    <th>D&iacute;as sin avance</th>
+                    <th>Riesgo</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="table-card" style="margin-top: 24px;">
+        <h3 style="margin-bottom: 16px; color: #1e293b;">&#128203; Detalle Completo de Tareas</h3>
+        <table id="fullTableA">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tarea</th>
+                    <th>Categor&iacute;a</th>
+                    <th>Prioridad</th>
+                    <th>Estado</th>
+                    <th>Hito</th>
+                    <th>Notas</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <!-- SECCION DE ANALISIS OPERATIVO DE TI - AGOSTO -->
+    <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin: 30px 0; font-family: sans-serif; color: #334155;">
+        <h2 style="color: #1e3a5f; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
+            📊 Informe de Desempe&ntilde;o y An&aacute;lisis Operativo
+        </h2>
+    <!-- RELACION PORCENTUAL DE DESEMPENO -->
+    <div style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 24px;">
+        <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 6px;">📊 Relaci&oacute;n Porcentual de Desempe&ntilde;o y An&aacute;lisis Operativo</h3>
+        <p style="color:#64748b; font-size:0.8rem; margin-bottom: 14px;" id="perfResumenA">Calculando...</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Tasa de Cumplimiento Global</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplimientoA"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Cumplimiento por Urgencia (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplUrgenciaA"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Distribuci&oacute;n de Estados (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartAvanceA"></canvas></div>
+            </div>
+        </div>
+    </div>
+
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; line-height: 1.6; font-size: 0.9rem;">
+
+            <!-- Bloque 1 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">🖥️ Tiempo de Actividad del Sistema</h3>
+                <p style="text-align: justify;"><strong>Disponibilidad de la Arquitectura:</strong> La infraestructura digital operativa se mantuvo estable durante el mes de agosto. Se registr&oacute; un incidente de intermitencia de internet y plataforma Odoo el d&iacute;a 31 con una duraci&oacute;n de aproximadamente 30 minutos. El resto del mes, la infraestructura oper&oacute; sin interrupciones significativas, soportando las cargas de facturaci&oacute;n, inventario y campa&ntilde;as de marketing.</p>
+            </div>
+
+            <!-- Bloque 2 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #22c55e;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">🤝 Soporte y Satisfacci&oacute;n del Usuario</h3>
+                <p style="text-align: justify;">Se mantuvo atenci&oacute;n directa al personal interno, destacando las jornadas de capacitaci&oacute;n en administraci&oacute;n Honda (entrenamiento a Karen), soporte a contabilidad con mantenimiento preventivo de equipos, y el soporte continuo para las &aacute;reas comerciales y de cobranza. Se implement&oacute; el simplificaci&oacute;n del bot para ADS de motos y se activ&oacute; el dashboard de pronto pago para visualizar pagos anticipados.</p>
+            </div>
+
+            <!-- Bloque 3 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #6366f1;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">⏱️ Tiempo de Respuesta a Incidentes</h3>
+                <p style="text-align: justify;">El incidente principal del mes fue la intermitencia en internet y plataforma Odoo del 31/08, con una duraci&oacute;n de 30 minutos. Se atendi&oacute; de manera inmediata con resoluci&oacute;n el mismo d&iacute;a. Las dem&aacute;s incidencias menores de conectividad y configuraci&oacute;n fueron resueltas dentro de los tiempos est&aacute;ndar, minimizando impacto en la operaci&oacute;n diaria.</p>
+            </div>
+
+            <!-- Bloque 4 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">⚙️ Configuraci&oacute;n y Personalizaci&oacute;n</h3>
+                <p style="text-align: justify;">Se ejecut&oacute; la configuraci&oacute;n del banco emisor motors, activaci&oacute;n de correos trigger para pagos, personalizaci&oacute;n del CRM con campo asesor LC, status precalificado habilitado para comercial, creaci&oacute;n de formulario de solicitud de motos, y configuraci&oacute;n del tablero de facturaci&oacute;n motors con inventario, alertas y facturaci&oacute;n en tablero. Tambi&eacute;n se modific&oacute; la p&aacute;gina web de Honda agregando planes de financiamiento de 12 y 48 meses m&aacute;s el 30% habilitado.</p>
+            </div>
+
+            <!-- Bloque 5 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #ec4899;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">📅 Gesti&oacute;n de Suscripciones y Marketing</h3>
+                <p style="text-align: justify;">Se ejecut&oacute; una campaña integral de marketing para motos: env&iacute;o de emails a 1500 clientes, 3 masivos por WhatsApp (detenidos por ADS), preparaci&oacute;n de data para Meta, creaci&oacute;n de plantillas de correo duplicadas para chatroom, configuraci&oacute;n de correo info@hondamerida con SMTP para correos autom&aacute;ticos, y generaci&oacute;n de dashboard y plantillas exportables para cobranza POE en tiempo real.</p>
+            </div>
+
+            <!-- Bloque 6 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #14b8a6;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">🔒 Acceso y Cumplimiento de Seguridad</h3>
+                <p style="text-align: justify;">Se mantuvieron las auditor&iacute;as sobre credenciales de acceso y se realiz&oacute; la configuraci&oacute;n de GohLevel con subcuenta de Instagram y Facebook integrada a Lia. Se generaron triggers de correos para el formulario de captaci&oacute;n de leads de motos, y se configur&oacute; el repetidor Honda pendiente de instalaci&oacute;n. La comparativa de precios del mercado se gener&oacute; v&iacute;a scrap para an&aacute;lisis competitivo.</p>
+            </div>
+
+        </div>
+    </div>
+
+    </div>
 </div>
 
 <script>
@@ -756,6 +979,54 @@ const tasksJulio = [
     {id:39, task:"Activacion Tecnogolazo plataforma", cat:"Promociones", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"20/07/2026", end:"24/07/2026", milestone:"Se activo campo de 10% de iniical", notes:""}
 ];
 
+const tasksAgosto = [
+    {id:1, task:"Inventario motors", cat:"Motors/Inventario", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"15/06/2026", end:"6/08/2026", milestone:"VIN y cantidad de vehiculos con salidas respectivas desde plataforma para calidad de datos", notes:""},
+    {id:2, task:"Revision pagos Motors", cat:"Pagos", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"10/06/2026", end:"1/08/2026", milestone:"", notes:""},
+    {id:3, task:"Revision pasarela de pago", cat:"Pagos", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"22/06/2026", end:"5/07/2026", milestone:"Se detecta en cuentas debidas no se ve la relacion mas si en vncidas", notes:""},
+    {id:4, task:"Gohlevel configuracion instagram/face", cat:"CRM/Integraci&oacute;n", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"1/08/2026", end:"10/08/2026", milestone:"Configurada subcuenta instagram a lia", notes:"integrado queda probar con meta"},
+    {id:5, task:"Modulo mantenimiento", cat:"Mantenimiento", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"13/08/2026", end:"15/08/2026", milestone:"", notes:""},
+    {id:6, task:"Catalogo web multimoneda", cat:"Web", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:7, task:"Tableros Motors", cat:"Reportes", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"13/08/2026", end:"15/08/2026", milestone:"Se realizo tablero ingresos y facturacion", notes:"https://latinbienti-sys.github.io/inventariohonda/"},
+    {id:8, task:"Firmas Digitales", cat:"Seguridad", priority:"Baja", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"En espera de aprobacion", notes:""},
+    {id:9, task:"Limpieza Campo profesional", cat:"Soporte", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"14/07/2026", end:"", milestone:"visual data", notes:""},
+    {id:10, task:"Pruebas N8N RPC dashboards", cat:"Automatizaci&oacute;n", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"25/07/2026", end:"1/08/2026", milestone:"Se cargo y documento ticket de pruebas de integracion", notes:""},
+    {id:11, task:"Configuracion Banco emisor motors", cat:"Pagos", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"3/08/2026", end:"5/08/2026", milestone:"", notes:""},
+    {id:12, task:"Pagos facturacion Motors", cat:"Pagos", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"1/08/2026", end:"5/08/2026", milestone:"Pagos operativos con recibos", notes:""},
+    {id:13, task:"Activacion correos trigger pagos", cat:"Automatizaci&oacute;n", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"4/08/2026", end:"7/08/2026", milestone:"Activo accion automatizada", notes:""},
+    {id:14, task:"Delegar profesion", cat:"Soporte", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"4/08/2026", end:"4/08/2026", milestone:"", notes:""},
+    {id:15, task:"Tablero LC activas", cat:"Reportes", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"4/08/2026", end:"6/08/2026", milestone:"", notes:""},
+    {id:16, task:"Status precalificado", cat:"CRM/Integraci&oacute;n", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"4/08/2026", end:"4/08/2026", milestone:"Status en CRM habilitado para comercial", notes:""},
+    {id:17, task:"CRM campo asesor LC", cat:"CRM/Integraci&oacute;n", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"1/08/2026", end:"3/08/2026", milestone:"Se agrego al CRM el campo asesor LC", notes:""},
+    {id:18, task:"Proceso de Retirados", cat:"Soporte", priority:"Baja", status:"No iniciada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:19, task:"Recibos imagen de LBM", cat:"Marketing", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"4/08/2026", end:"19/08/2026", milestone:"Se realizaron los cambios requeridos en el mes 3", notes:""},
+    {id:20, task:"Simplificacion de Bot", cat:"Automatizaci&oacute;n", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"4/08/2026", end:"28/08/2026", milestone:"Se cargo bot para ADS motos", notes:""},
+    {id:21, task:"Capacitacion Administracion Honda", cat:"Capacitaci&oacute;n", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"4/08/2026", end:"6/08/2026", milestone:"Capacitacion Karen", notes:""},
+    {id:22, task:"Envio y preparacion data cobranza", cat:"Cobranza", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"8/08/2026", end:"8/08/2026", milestone:"Envio mensaje preventivo", notes:""},
+    {id:23, task:"Configuracion repetidor honda", cat:"Infraestructura", priority:"Baja", status:"No iniciada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:24, task:"Tablero honda jennifer", cat:"Reportes", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"10/08/2026", end:"15/08/2026", milestone:"Gestion creada", notes:"https://latinbienti-sys.github.io/gestionhonda/"},
+    {id:25, task:"Pronto pago motos", cat:"Cobranza", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"28/08/2026", end:"", milestone:"Se activo dashboard para visualizar pagos antes de las fechas de vencimiento", notes:""},
+    {id:26, task:"Revision procesos motos", cat:"Soporte", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"14/08/2026", end:"14/08/2026", milestone:"Flujograma de procesos de latinbien", notes:""},
+    {id:27, task:"Personalizacion motors CRM", cat:"CRM/Integraci&oacute;n", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"10/08/2026", end:"14/08/2026", milestone:"CRM campos creados para filtro y tableros de gestion", notes:""},
+    {id:28, task:"Formulario solicitud motos", cat:"CRM/Integraci&oacute;n", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"14/08/2026", end:"14/08/2026", milestone:"Formulario de captacion para leads de motos CRM", notes:"https://latinbien.com/solicitudmotos"},
+    {id:29, task:"Mantenimiento y Reparacion equipo Contador", cat:"Infraestructura", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"13/08/2026", end:"15/08/2026", milestone:"Mantenimiento preventivo equipos operatividad windows/office", notes:""},
+    {id:30, task:"Marketing por email", cat:"Marketing", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"17/08/2026", end:"17/08/2026", milestone:"Marketing de motos enviado 1500 clientes", notes:""},
+    {id:31, task:"Masivo wp motos", cat:"Marketing", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"12/08/2026", end:"26/08/2026", milestone:"Se enviaron 3 masivos, se detiene por ADS", notes:""},
+    {id:32, task:"Banner web Agosto LB", cat:"Marketing", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"1/08/2026", end:"1/08/2026", milestone:"TICKET", notes:""},
+    {id:33, task:"Campana Latinbien Motos", cat:"Marketing", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"13/08/2026", end:"16/08/2026", milestone:"Preparacion marketing email envio plantilla y envio wp", notes:""},
+    {id:34, task:"App latinbien", cat:"Desarrollo", priority:"Baja", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:35, task:"Plantillas de correo", cat:"CRM/Integraci&oacute;n", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"17/08/2026", end:"17/08/2026", milestone:"Duplicado de plantillas de CRM para chatroom", notes:""},
+    {id:36, task:"Falla de odoo", cat:"Infraestructura", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"18/08/2026", end:"18/08/2026", milestone:"1 hora duro inestable la conexion a plataforma", notes:"1 hora sin conectar a plataforma"},
+    {id:37, task:"Tablero facturacion motors", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"20/08/2026", end:"20/08/2026", milestone:"Inventario, alertas y facturacion en tablero", notes:"https://latinbienti-sys.github.io/inventariohonda/"},
+    {id:38, task:"Inventario latinbien", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"21/08/2026", end:"", milestone:"Se creo tablero de latinbien, se mantiene en construccion", notes:""},
+    {id:39, task:"Triggers de correos para formulario", cat:"Automatizaci&oacute;n", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"21/08/2026", end:"23/08/2026", milestone:"Se genera accion para registros de lead en formulario", notes:""},
+    {id:40, task:"Plantilla cobranza para cobros POE", cat:"Cobranza", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"23/08/2026", end:"24/08/2026", milestone:"Dashboard y plantillas exportables en tiempo real para masivos", notes:""},
+    {id:41, task:"Comparativa precios", cat:"Reportes", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"26/08/2026", end:"26/08/2026", milestone:"Scrap de precios en mercado para comparativo", notes:"https://latinbienti-sys.github.io/comparativoprecios/"},
+    {id:42, task:"Configuracion correo info@hondamerida", cat:"Infraestructura", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"23/08/2026", end:"23/08/2026", milestone:"Cuenta SMTP para salida de correos automaticos", notes:""},
+    {id:43, task:"Tablero pago a proveedores Motos", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"25/08/2026", end:"28/08/2026", milestone:"Alerta y condiciono cuotas de pagos a proveedores para Motos", notes:"https://latinbienti-sys.github.io/profesional/"},
+    {id:44, task:"Modificacion pagina web Honda", cat:"Web", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"30/08/2026", end:"", milestone:"Planes de financimiento 12 y 48 meses mas el 30% habilitado", notes:""},
+    {id:45, task:"Intermitencia en internet y plataforma odoo", cat:"Infraestructura", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"31/08/2026", end:"31/08/2026", milestone:"Falla de media hora en internet y odoo", notes:"media hora intermitencia"}
+];
+
 
 const statusColors = {
     "Completada": "#22c55e",
@@ -812,11 +1083,13 @@ function catColorOriginal(c) {
 function catColorExtended(c) {
     if (c === "Chatroom" || c === "Marcas") return "#ef4444";
     if (c === "Pagos" || c === "Motors/Inventario" || c === "Cobranza") return "#f59e0b";
-    if (c === "CRM/Integración" || c === "Infraestructura" || c === "Automatización" || c === "Reportes") return "#3b82f6";
+    if (c === "CRM/Integración" || c === "CRM/Integraci&oacute;n" || c === "Infraestructura" || c === "Automatización" || c === "Automatizaci&oacute;n" || c === "Reportes") return "#3b82f6";
     if (c === "Membresía" || c === "Promociones" || c === "Compras") return "#8b5cf6";
-    if (c === "Web" || c === "Capacitación") return "#06b6d4";
+    if (c === "Web" || c === "Capacitación" || c === "Capacitaci&oacute;n") return "#06b6d4";
     if (c === "Mantenimiento" || c === "Almacén") return "#f97316";
     if (c === "Seguridad" || c === "Soporte" || c === "Fiscal") return "#ec4899";
+    if (c === "Marketing") return "#e11d48";
+    if (c === "Desarrollo") return "#7c3aed";
     return "#22c55e";
 }
 
@@ -1301,13 +1574,21 @@ function switchTab(tab) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
     document.getElementById('panel-junio').classList.toggle('active', tab === 'junio');
     document.getElementById('panel-julio').classList.toggle('active', tab === 'julio');
-    const isJulio = tab === 'julio';
-    document.getElementById('periodLabel').textContent = isJulio ? 'Julio 2026' : 'Junio 2026';
-    document.getElementById('totalTasks').textContent = isJulio ? tasksJulio.length : tasks.length;
+    document.getElementById('panel-agosto').classList.toggle('active', tab === 'agosto');
+    const monthMap = {junio: 'Junio 2026', julio: 'Julio 2026', agosto: 'Agosto 2026'};
+    const taskCountMap = {junio: tasks.length, julio: tasksJulio.length, agosto: tasksAgosto.length};
+    document.getElementById('periodLabel').textContent = monthMap[tab] || 'Junio 2026';
+    document.getElementById('totalTasks').textContent = (taskCountMap[tab] || tasks.length);
     if (tab === 'julio' && !rendered.julio) {
         rendered.julio = true;
         requestAnimationFrame(function() {
             renderDashboard("J", tasksJulio, "Julio 2026", "Jul", catColorExtended);
+        });
+    }
+    if (tab === 'agosto' && !rendered.agosto) {
+        rendered.agosto = true;
+        requestAnimationFrame(function() {
+            renderDashboard("A", tasksAgosto, "Agosto 2026", "Ago", catColorExtended);
         });
     }
 }
