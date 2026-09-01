@@ -216,16 +216,16 @@
 <div class="container">
     <header class="header">
         <h1>Dashboard TI LATINBIEN</h1>
-        <p>Gestión de Tareas · <span id="periodLabel">Junio 2026</span> · <span id="totalTasks">39</span> tareas registradas</p>
+        <p>Gesti&oacute;n de Tareas &middot; <span id="periodLabel">Agosto 2026</span> &middot; <span id="totalTasks">45</span> tareas registradas</p>
     </header>
 
     <div class="tabs" role="tablist">
-        <button class="tab-btn active" data-tab="junio" role="tab">Junio 2026</button>
+        <button class="tab-btn" data-tab="junio" role="tab">Junio 2026</button>
         <button class="tab-btn" data-tab="julio" role="tab">Julio 2026</button>
-        <button class="tab-btn" data-tab="agosto" role="tab">Agosto 2026</button>
+        <button class="tab-btn active" data-tab="agosto" role="tab">Agosto 2026</button>
     </div>
 
-    <div id="panel-junio" class="tab-panel active">
+    <div id="panel-junio" class="tab-panel">
 <div class="stats-grid" id="statsGrid">
         <div class="stat-card completed">
             <div class="stat-value" id="stat-completed">--</div>
@@ -672,7 +672,7 @@
     </div>
 
     <!-- PANEL AGOSTO 2026 -->
-    <div id="panel-agosto" class="tab-panel">
+    <div id="panel-agosto" class="tab-panel active">
 <div class="stats-grid" id="statsGridA">
         <div class="stat-card completed">
             <div class="stat-value" id="stat-completedA">--</div>
@@ -1565,8 +1565,8 @@ function renderDashboard(prefix, taskList, monthLabel, monthShort, catColorFn) {
     });
 }
 
-// Render de JUNIO (inmediato)
-renderDashboard("", tasks, "Junio 2026", "Jun", catColorOriginal);
+// Render de AGOSTO (inmediato)
+renderDashboard("A", tasksAgosto, "Agosto 2026", "Ago", catColorExtended);
 
 // --- Pestanas ---
 const rendered = {};
@@ -1593,7 +1593,7 @@ function switchTab(tab) {
     }
 }
 document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', function() { switchTab(this.dataset.tab); }));
-switchTab('junio');
+switchTab('agosto');
 
 </script>
 </body>
