@@ -216,13 +216,14 @@
 <div class="container">
     <header class="header">
         <h1>Dashboard TI LATINBIEN</h1>
-        <p>Gesti&oacute;n de Tareas &middot; <span id="periodLabel">Agosto 2026</span> &middot; <span id="totalTasks">45</span> tareas registradas</p>
+        <p>Gesti&oacute;n de Tareas &middot; <span id="periodLabel">Septiembre 2026</span> &middot; <span id="totalTasks">26</span> tareas registradas</p>
     </header>
 
     <div class="tabs" role="tablist">
         <button class="tab-btn" data-tab="junio" role="tab">Junio 2026</button>
         <button class="tab-btn" data-tab="julio" role="tab">Julio 2026</button>
-        <button class="tab-btn active" data-tab="agosto" role="tab">Agosto 2026</button>
+        <button class="tab-btn" data-tab="agosto" role="tab">Agosto 2026</button>
+        <button class="tab-btn active" data-tab="septiembre" role="tab">Septiembre 2026</button>
     </div>
 
     <div id="panel-junio" class="tab-panel">
@@ -672,7 +673,7 @@
     </div>
 
     <!-- PANEL AGOSTO 2026 -->
-    <div id="panel-agosto" class="tab-panel active">
+    <div id="panel-agosto" class="tab-panel">
 <div class="stats-grid" id="statsGridA">
         <div class="stat-card completed">
             <div class="stat-value" id="stat-completedA">--</div>
@@ -892,6 +893,228 @@
     </div>
 
     </div>
+
+    <!-- PANEL SEPTIEMBRE 2026 -->
+    <div id="panel-septiembre" class="tab-panel active">
+<div class="stats-grid" id="statsGridS">
+        <div class="stat-card completed">
+            <div class="stat-value" id="stat-completedS">--</div>
+            <div class="stat-label">Completadas</div>
+        </div>
+        <div class="stat-card in-progress">
+            <div class="stat-value" id="stat-inprogressS">--</div>
+            <div class="stat-label">En Curso</div>
+        </div>
+        <div class="stat-card pending">
+            <div class="stat-value" id="stat-pendingS">--</div>
+            <div class="stat-label">No Iniciadas</div>
+        </div>
+        <div class="stat-card blocked">
+            <div class="stat-value" id="stat-blockedS">--</div>
+            <div class="stat-label">Bloqueadas</div>
+        </div>
+        <div class="stat-card high">
+            <div class="stat-value" id="stat-highS">--</div>
+            <div class="stat-label">Urgencia Inmediata</div>
+        </div>
+        <div class="stat-card medium">
+            <div class="stat-value" id="stat-mediumS">--</div>
+            <div class="stat-label">Urgencia Media</div>
+        </div>
+        <div class="stat-card low">
+            <div class="stat-value" id="stat-lowS">--</div>
+            <div class="stat-label">Urgencia Baja</div>
+        </div>
+    </div>
+
+    <div class="alerts-banner" id="alertsBannerS">
+        <h2>&#9888; Alertas Cr&iacute;ticas &mdash; Prioridad Inmediata No Completadas</h2>
+        <div class="alerts-grid" id="alertsGridS"></div>
+        <div style="margin-top:12px; font-size:0.85rem; color:#991b1b; background:#fecaca; padding:10px 14px; border-radius:8px;">
+            <strong>&#9200; Impacto:</strong> <span id="alertImpactTextS">Calculando...</span>
+        </div>
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Estado de Tareas</div>
+                    <div class="chart-subtitle">Distribuci&oacute;n por estado actual</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartStatusS"></canvas>
+            </div>
+            <div class="legend-custom" id="legendStatusS"></div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Prioridad / Urgencia</div>
+                    <div class="chart-subtitle">Distribuci&oacute;n por nivel de urgencia</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartPriorityS"></canvas>
+            </div>
+            <div class="legend-custom" id="legendPriorityS"></div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Estado &times; Prioridad</div>
+                    <div class="chart-subtitle">Matriz de riesgo: cruce de dimensiones</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartHeatmapS"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Tendencia Semanal (Septiembre)</div>
+                    <div class="chart-subtitle">Tareas completadas por semana</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartTrendS"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card full-width">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Categor&iacute;as de Tareas</div>
+                    <div class="chart-subtitle">Distribuci&oacute;n por &aacute;rea funcional</div>
+                </div>
+            </div>
+            <div class="chart-wrapper large">
+                <canvas id="chartCategoriesS"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card full-width">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">L&iacute;nea de Tiempo &mdash; Tareas Cr&iacute;ticas</div>
+                    <div class="chart-subtitle">Gantt simplificado: tareas prioritarias con fechas</div>
+                </div>
+            </div>
+            <div class="chart-wrapper large">
+                <canvas id="chartGanttS"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <h3 style="margin-bottom: 16px; color: #1e293b;">&#9888; Tareas Cr&iacute;ticas &mdash; Acci&oacute;n Requerida</h3>
+        <table id="criticalTableS">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tarea</th>
+                    <th>Categor&iacute;a</th>
+                    <th>Prioridad</th>
+                    <th>Estado</th>
+                    <th>Inicio</th>
+                    <th>D&iacute;as sin avance</th>
+                    <th>Riesgo</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="table-card" style="margin-top: 24px;">
+        <h3 style="margin-bottom: 16px; color: #1e293b;">&#128203; Detalle Completo de Tareas</h3>
+        <table id="fullTableS">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tarea</th>
+                    <th>Categor&iacute;a</th>
+                    <th>Prioridad</th>
+                    <th>Estado</th>
+                    <th>Hito</th>
+                    <th>Notas</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <!-- SECCION DE ANALISIS OPERATIVO DE TI - SEPTIEMBRE -->
+    <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin: 30px 0; font-family: sans-serif; color: #334155;">
+        <h2 style="color: #1e3a5f; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
+            &#128202; Informe de Desempe&ntilde;o y An&aacute;lisis Operativo
+        </h2>
+    <!-- RELACION PORCENTUAL DE DESEMPENO -->
+    <div style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 24px;">
+        <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 6px;">&#128202; Relaci&oacute;n Porcentual de Desempe&ntilde;o y An&aacute;lisis Operativo</h3>
+        <p style="color:#64748b; font-size:0.8rem; margin-bottom: 14px;" id="perfResumenS">Calculando...</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Tasa de Cumplimiento Global</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplimientoS"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Cumplimiento por Urgencia (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplUrgenciaS"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Distribuci&oacute;n de Estados (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartAvanceS"></canvas></div>
+            </div>
+        </div>
+    </div>
+
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; line-height: 1.6; font-size: 0.9rem;">
+
+            <!-- Bloque 1 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#128421; Tiempo de Actividad del Sistema</h3>
+                <p style="text-align: justify;"><strong>Disponibilidad de la Arquitectura:</strong> septiembre fue el mes con mayor impacto en disponibilidad del a&ntilde;o. Se registraron tres incidentes relevantes: el d&iacute;a <strong>07/09</strong> una ca&iacute;da de Odoo de <strong>20 minutos</strong>; el d&iacute;a <strong>11/09</strong> una falla del chatroom de Honda con duraci&oacute;n de <strong>8 horas</strong> (la de mayor impacto del mes, con afectaci&oacute;n directa al canal de atenci&oacute;n comercial); y el d&iacute;a <strong>12/09</strong> una ca&iacute;da del chatroom de Latinbien de <strong>30 minutos</strong>. En total se acumularon aproximadamente <strong>8.8 horas de inactividad</strong>, equivalentes a m&aacute;s del 98% de un d&iacute;a h&aacute;bil de ca&iacute;da efectiva. Fuera de esos eventos, la infraestructura oper&oacute; sin interrupciones, sosteniendo tableros de ventas, inventario y cierre.</p>
+            </div>
+
+            <!-- Bloque 2 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #22c55e;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#129309; Soporte y Satisfacci&oacute;n del Usuario</h3>
+                <p style="text-align: justify;">Se destaca el soporte al usuario final con tres acciones de atenci&oacute;n directa: <strong>1)</strong> pruebas del mensaje de cumplea&ntilde;os, que llegaron sin problemas a los destinatarios; <strong>2)</strong> revisi&oacute;n en Odoo de casos puntuales de Master con seguimiento completo el 29/09; y <strong>3)</strong> soporte al canal chatroom, que sufri&oacute; la ca&iacute;da de 8 horas en Honda y fue restituido. Persisten dos bloqueos que requieren escalamiento: <strong>Firmas Digitales</strong> (en espera de aprobaci&oacute;n) y <strong>Pruebas OCR</strong> (sin fecha de liberaci&oacute;n).</p>
+            </div>
+
+            <!-- Bloque 3 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #6366f1;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#9201; Tiempo de Respuesta a Incidentes</h3>
+                <p style="text-align: justify;">Los tres incidentes fueron registrados y cerrados dentro del mismo per&iacute;odo. <strong>1)</strong> Ca&iacute;da de Odoo del <strong>07/09</strong>, con duraci&oacute;n de <strong>20 minutos</strong>. <strong>2)</strong> Falla del chatroom Honda del <strong>11/09 al 12/09</strong>, con duraci&oacute;n de <strong>8 horas</strong>, el incidente de mayor criticidad por impacto en atenci&oacute;n al cliente. <strong>3)</strong> Falla del chatroom Latinbien del <strong>12/09</strong>, con duraci&oacute;n de <strong>30 minutos</strong>. <strong>Tiempo total de inactividad del mes: 8.8 horas</strong>, 5.9 veces mayor al registrado en agosto, lo que exige revisar la redundancia del servicio de chatroom.</p>
+            </div>
+
+            <!-- Bloque 4 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#9881; Configuraci&oacute;n y Personalizaci&oacute;n</h3>
+                <p style="text-align: justify;">El mes se distingui&oacute; por la personalizaci&oacute;n de plataforma: campos de medio de pago y l&iacute;neas de cr&eacute;dito en la plataforma, con extracci&oacute;n de consulta en dashboard; agregaci&oacute;n de planes de financiamiento de <strong>12 y 48 meses</strong> m&aacute;s el 30% habilitado en la p&aacute;gina web de Honda; configuraci&oacute;n del repetidor Honda; activaci&oacute;n de la etiqueta de 10% en cat&aacute;logos; y cierre del proceso de retirados con facturaci&oacute;n y migraci&oacute;n completadas. Se mantiene en construcci&oacute;n la app Latinbien y el sistema de servicios.</p>
+            </div>
+
+            <!-- Bloque 5 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #ec4899;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#128197; Gesti&oacute;n de Suscripciones y Marketing</h3>
+                <p style="text-align: justify;">Se publicaron <strong>cuatro tableros nuevos</strong> que ampl&iacute;an la capacidad de an&aacute;lisis comercial: tablero de motos, embudo de ventas Latinbien, tablero de categor&iacute;as motos y tecnolog&iacute;a, y tablero de inventario de almac&eacute;n con actualizaci&oacute;n de precios m&aacute;s antiguos. En marketing se activ&oacute; la promoci&oacute;n del 10% en cat&aacute;logo y se valid&oacute; el mensaje de cumplea&ntilde;os. Se mantiene la migraci&oacute;n de tableros y la API del Tesoro como frentes pendientes.</p>
+            </div>
+
+            <!-- Bloque 6 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #14b8a6;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#128274; Acceso y Cumplimiento de Seguridad</h3>
+                <p style="text-align: justify;">Permanecen abiertos dos frentes de seguridad y cumplimiento: <strong>Firmas Digitales</strong>, a la espera de aprobaci&oacute;n, y <strong>Pruebas OCR</strong>, bloqueada sin fecha de liberaci&oacute;n. Las credenciales del repetidor Honda fueron configuradas y se mantienen fuera de este informe p&uacute;blico por razones de seguridad. El 62% de cumplimiento global y el 71% en tareas de urgencia inmediata reflejan una operaci&oacute;n s&oacute;lida, con el &aacute;rea cr&iacute;tica concentrada en la disponibilidad del canal chatroom.</p>
+            </div>
+
+        </div>
+    </div>
+
+    </div>
 </div>
 
 <script>
@@ -1028,6 +1251,36 @@ const tasksAgosto = [
 ];
 
 
+const tasksSeptiembre = [
+    {id:1, task:"Revision pasarela de pago", cat:"Pagos", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"22/06/2026", end:"5/07/2026", milestone:"Se detecta en cuentas debidas no se ve la relacion mas si en vncidas", notes:"20% de avance"},
+    {id:2, task:"catalogo web multimoneda", cat:"Web", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:3, task:"Firmas Digitales", cat:"Seguridad", priority:"Baja", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"En espera de aprobacion", notes:""},
+    {id:4, task:"Limpieza Campo profesional", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"18/09/2026", end:"", milestone:"visual data", notes:"70% de avance"},
+    {id:5, task:"Proceso de Retirados", cat:"Motors/Inventario", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"22/09/2026", end:"22/09/2026", milestone:"Proceso de facturacion completado de migracion", notes:""},
+    {id:6, task:"configuracion repetidor honda", cat:"Infraestructura", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"6/09/2026", end:"8/09/2026", milestone:"Repetidor Honda configurado y operativo", notes:"Credenciales de acceso protegidas, no publicadas en este informe"},
+    {id:7, task:"pronto pago motos", cat:"Pagos", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"28/08/2026", end:"9/09/2026", milestone:"Se activo dashboard para visualizar pagos antes de las fechas de vencimiento", notes:""},
+    {id:8, task:"app latinbien", cat:"Desarrollo", priority:"Baja", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:"45% de avance"},
+    {id:9, task:"inventario latinbien", cat:"Motors/Inventario", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"21/08/2026", end:"", milestone:"Se creo tablero de latinbien, se mantiene en construccion y seguimiento", notes:"80% de avance"},
+    {id:10, task:"Modificacion pagina web de Honda", cat:"Web", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"30/08/2026", end:"2/09/2026", milestone:"Se agregaron planes de financiamiento de 12 y 48 meses mas el 30% habilitado, con detalle en index y leyenda de plazos", notes:""},
+    {id:11, task:"Pruebas OCR", cat:"Desarrollo", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:12, task:"Personalizacion campos para Lineas de Credito", cat:"Pagos", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"1/09/2026", end:"1/09/2026", milestone:"Se personalizo plataforma para campos de medio de latinbien y se extrajo consulta en dashboard", notes:"https://latinbienti-sys.github.io/dashboard-latinbien/"},
+    {id:13, task:"TABLERO MOTOS", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"5/09/2026", end:"", milestone:"Tablero de motos publicado", notes:"https://latinbienti-sys.github.io/dashboard-latinbien/"},
+    {id:14, task:"API TESORO", cat:"Automatización", priority:"Inmediata", status:"No iniciada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:15, task:"Caida odoo", cat:"Infraestructura", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"7/09/2026", end:"7/09/2026", milestone:"Caida por 20 minutos", notes:""},
+    {id:16, task:"Mensaje de cumpleaños falla", cat:"Marketing", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"8/09/2026", end:"8/09/2026", milestone:"Se realizaron pruebas del mensaje llegando sin problemas", notes:""},
+    {id:17, task:"Carga data farmabien", cat:"CRM/Integración", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"12/09/2026", end:"12/09/2026", milestone:"Carga a CRM", notes:""},
+    {id:18, task:"caida chatroom honda", cat:"Chatroom", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"11/09/2026", end:"12/09/2026", milestone:"Falla chatroom con duracion de 8 horas", notes:"Incidente de mayor impacto del mes"},
+    {id:19, task:"caida chatroom latinbien", cat:"Chatroom", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"12/09/2026", end:"12/09/2026", milestone:"Falla chatroom con duracion de 30 minutos", notes:""},
+    {id:20, task:"inventario latinbien", cat:"Almacén", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"16/09/2026", end:"17/09/2026", milestone:"Tablero de inventario con precios mas viejos en almacen", notes:"https://latinbienti-sys.github.io/latinb/"},
+    {id:21, task:"embudo de ventas latinbien", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"15/09/2026", end:"22/09/2026", milestone:"Tablero de embudo de ventas publicado", notes:"https://latinbienti-sys.github.io/embudoventas/"},
+    {id:22, task:"activacion 10 catalogo", cat:"Promociones", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"16/09/2026", end:"16/09/2026", milestone:"Catalogo con etiqueta de 10%", notes:""},
+    {id:23, task:"migracion tableros", cat:"Reportes", priority:"Inmediata", status:"No iniciada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:24, task:"tablero categoria motos y tecnologia", cat:"Reportes", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"17/09/2026", end:"24/09/2026", milestone:"Tablero de categoria motos y tecnologia publicado", notes:"https://latinbienti-sys.github.io/cierrelb/"},
+    {id:25, task:"sistema servicios", cat:"Desarrollo", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"16/09/2026", end:"", milestone:"", notes:""},
+    {id:26, task:"Revision Master casos puntuales pendientes y seguimiento", cat:"Soporte", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"29/09/2026", end:"29/09/2026", milestone:"Revision y seguimiento de casos puntuales en Odoo", notes:"https://latinbien.com/web#id=3539&cids=1&menu_id=356&action=519&active_id=6&model=project.task&view_type=form"}
+];
+
+
 const statusColors = {
     "Completada": "#22c55e",
     "En curso": "#3b82f6",
@@ -1086,7 +1339,7 @@ function catColorExtended(c) {
     if (c === "CRM/Integración" || c === "CRM/Integraci&oacute;n" || c === "Infraestructura" || c === "Automatización" || c === "Automatizaci&oacute;n" || c === "Reportes") return "#3b82f6";
     if (c === "Membresía" || c === "Promociones" || c === "Compras") return "#8b5cf6";
     if (c === "Web" || c === "Capacitación" || c === "Capacitaci&oacute;n") return "#06b6d4";
-    if (c === "Mantenimiento" || c === "Almacén") return "#f97316";
+    if (c === "Mantenimiento" || c === "Almacén" || c === "Almac&eacute;n") return "#f97316";
     if (c === "Seguridad" || c === "Soporte" || c === "Fiscal") return "#ec4899";
     if (c === "Marketing") return "#e11d48";
     if (c === "Desarrollo") return "#7c3aed";
@@ -1565,20 +1818,23 @@ function renderDashboard(prefix, taskList, monthLabel, monthShort, catColorFn) {
     });
 }
 
-// Render de AGOSTO (inmediato)
-renderDashboard("A", tasksAgosto, "Agosto 2026", "Ago", catColorExtended);
-
 // --- Pestanas ---
 const rendered = {};
+
+// Render de SEPTIEMBRE (pestana activa por defecto)
+rendered.septiembre = true;
+renderDashboard("S", tasksSeptiembre, "Septiembre 2026", "Sep", catColorExtended);
+
 function switchTab(tab) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
     document.getElementById('panel-junio').classList.toggle('active', tab === 'junio');
     document.getElementById('panel-julio').classList.toggle('active', tab === 'julio');
     document.getElementById('panel-agosto').classList.toggle('active', tab === 'agosto');
-    const monthMap = {junio: 'Junio 2026', julio: 'Julio 2026', agosto: 'Agosto 2026'};
-    const taskCountMap = {junio: tasks.length, julio: tasksJulio.length, agosto: tasksAgosto.length};
-    document.getElementById('periodLabel').textContent = monthMap[tab] || 'Junio 2026';
-    document.getElementById('totalTasks').textContent = (taskCountMap[tab] || tasks.length);
+    document.getElementById('panel-septiembre').classList.toggle('active', tab === 'septiembre');
+    const monthMap = {junio: 'Junio 2026', julio: 'Julio 2026', agosto: 'Agosto 2026', septiembre: 'Septiembre 2026'};
+    const taskCountMap = {junio: tasks.length, julio: tasksJulio.length, agosto: tasksAgosto.length, septiembre: tasksSeptiembre.length};
+    document.getElementById('periodLabel').textContent = monthMap[tab] || 'Septiembre 2026';
+    document.getElementById('totalTasks').textContent = (taskCountMap[tab] || tasksSeptiembre.length);
     if (tab === 'julio' && !rendered.julio) {
         rendered.julio = true;
         requestAnimationFrame(function() {
@@ -1591,9 +1847,15 @@ function switchTab(tab) {
             renderDashboard("A", tasksAgosto, "Agosto 2026", "Ago", catColorExtended);
         });
     }
+    if (tab === 'septiembre' && !rendered.septiembre) {
+        rendered.septiembre = true;
+        requestAnimationFrame(function() {
+            renderDashboard("S", tasksSeptiembre, "Septiembre 2026", "Sep", catColorExtended);
+        });
+    }
 }
 document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', function() { switchTab(this.dataset.tab); }));
-switchTab('agosto');
+switchTab('septiembre');
 
 </script>
 </body>
