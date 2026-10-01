@@ -1040,6 +1040,7 @@
                     <th>Categor&iacute;a</th>
                     <th>Prioridad</th>
                     <th>Estado</th>
+                    <th>Avance</th>
                     <th>Hito</th>
                     <th>Notas</th>
                 </tr>
@@ -1068,6 +1069,10 @@
             <div style="background:white; border-radius:10px; padding:14px;">
                 <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Distribuci&oacute;n de Estados (%)</div>
                 <div style="position: relative; height: 200px;"><canvas id="chartAvanceS"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Avance de Tareas Abiertas (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartProgresoS"></canvas></div>
             </div>
         </div>
     </div>
@@ -1108,7 +1113,7 @@
             <!-- Bloque 6 -->
             <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #14b8a6;">
                 <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#128274; Acceso y Cumplimiento de Seguridad</h3>
-                <p style="text-align: justify;">Permanecen abiertos dos frentes de seguridad y cumplimiento: <strong>Firmas Digitales</strong>, a la espera de aprobaci&oacute;n, y <strong>Pruebas OCR</strong>, bloqueada sin fecha de liberaci&oacute;n. Las credenciales del repetidor Honda fueron configuradas y se mantienen fuera de este informe p&uacute;blico por razones de seguridad. El 62% de cumplimiento global y el 71% en tareas de urgencia inmediata reflejan una operaci&oacute;n s&oacute;lida, con el &aacute;rea cr&iacute;tica concentrada en la disponibilidad del canal chatroom.</p>
+                <p style="text-align: justify;">Permanecen abiertos dos frentes de seguridad y cumplimiento: <strong>Firmas Digitales</strong>, a la espera de aprobaci&oacute;n, y <strong>Pruebas OCR</strong>, bloqueada sin fecha de liberaci&oacute;n. Las credenciales del repetidor Honda fueron configuradas y se mantienen fuera de este informe p&uacute;blico por razones de seguridad. El 62% de cumplimiento global y el 71% en tareas de urgencia inmediata reflejan una operaci&oacute;n s&oacute;lida. El avance registrado en la hoja de seguimiento cierra las 16 tareas completadas al <strong>100%</strong>, mientras que las cuatro tareas en curso promedian <strong>69%</strong> de avance (Limpieza de campo profesional 80%, inventario Latinbien 80%, sistema de servicios 70% y app Latinbien 45%), lo que sit&uacute;a la carga real de trabajo en ejecuci&oacute;n y no en arranque. El &aacute;rea cr&iacute;tica se concentra en la disponibilidad del canal chatroom.</p>
             </div>
 
         </div>
@@ -1252,32 +1257,32 @@ const tasksAgosto = [
 
 
 const tasksSeptiembre = [
-    {id:1, task:"Revision pasarela de pago", cat:"Pagos", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"22/06/2026", end:"5/07/2026", milestone:"Se detecta en cuentas debidas no se ve la relacion mas si en vncidas", notes:"20% de avance"},
+    {id:1, task:"Revision pasarela de pago", cat:"Pagos", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"22/06/2026", end:"5/07/2026", progress:20, milestone:"Se detecta en cuentas debidas no se ve la relacion mas si en vncidas", notes:""},
     {id:2, task:"catalogo web multimoneda", cat:"Web", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
     {id:3, task:"Firmas Digitales", cat:"Seguridad", priority:"Baja", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"En espera de aprobacion", notes:""},
-    {id:4, task:"Limpieza Campo profesional", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"18/09/2026", end:"", milestone:"visual data", notes:"70% de avance"},
-    {id:5, task:"Proceso de Retirados", cat:"Motors/Inventario", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"22/09/2026", end:"22/09/2026", milestone:"Proceso de facturacion completado de migracion", notes:""},
-    {id:6, task:"configuracion repetidor honda", cat:"Infraestructura", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"6/09/2026", end:"8/09/2026", milestone:"Repetidor Honda configurado y operativo", notes:"Credenciales de acceso protegidas, no publicadas en este informe"},
-    {id:7, task:"pronto pago motos", cat:"Pagos", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"28/08/2026", end:"9/09/2026", milestone:"Se activo dashboard para visualizar pagos antes de las fechas de vencimiento", notes:""},
-    {id:8, task:"app latinbien", cat:"Desarrollo", priority:"Baja", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:"45% de avance"},
-    {id:9, task:"inventario latinbien", cat:"Motors/Inventario", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"21/08/2026", end:"", milestone:"Se creo tablero de latinbien, se mantiene en construccion y seguimiento", notes:"80% de avance"},
-    {id:10, task:"Modificacion pagina web de Honda", cat:"Web", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"30/08/2026", end:"2/09/2026", milestone:"Se agregaron planes de financiamiento de 12 y 48 meses mas el 30% habilitado, con detalle en index y leyenda de plazos", notes:""},
+    {id:4, task:"Limpieza Campo profesional", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"18/09/2026", end:"", progress:80, milestone:"visual data", notes:""},
+    {id:5, task:"Proceso de Retirados", cat:"Motors/Inventario", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"22/09/2026", end:"22/09/2026", progress:100, milestone:"Proceso de facturacion completado de migracion", notes:""},
+    {id:6, task:"configuracion repetidor honda", cat:"Infraestructura", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"6/09/2026", end:"8/09/2026", progress:100, milestone:"Repetidor Honda configurado y operativo", notes:"Credenciales de acceso protegidas, no publicadas en este informe"},
+    {id:7, task:"pronto pago motos", cat:"Pagos", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"28/08/2026", end:"9/09/2026", progress:100, milestone:"Se activo dashboard para visualizar pagos antes de las fechas de vencimiento", notes:""},
+    {id:8, task:"app latinbien", cat:"Desarrollo", priority:"Baja", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", progress:45, milestone:"", notes:""},
+    {id:9, task:"inventario latinbien", cat:"Motors/Inventario", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"21/08/2026", end:"", progress:80, milestone:"Se creo tablero de latinbien, se mantiene en construccion y seguimiento", notes:""},
+    {id:10, task:"Modificacion pagina web de Honda", cat:"Web", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"30/08/2026", end:"2/09/2026", progress:100, milestone:"Se agregaron planes de financiamiento de 12 y 48 meses mas el 30% habilitado, con detalle en index y leyenda de plazos", notes:""},
     {id:11, task:"Pruebas OCR", cat:"Desarrollo", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
-    {id:12, task:"Personalizacion campos para Lineas de Credito", cat:"Pagos", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"1/09/2026", end:"1/09/2026", milestone:"Se personalizo plataforma para campos de medio de latinbien y se extrajo consulta en dashboard", notes:"https://latinbienti-sys.github.io/dashboard-latinbien/"},
-    {id:13, task:"TABLERO MOTOS", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"5/09/2026", end:"", milestone:"Tablero de motos publicado", notes:"https://latinbienti-sys.github.io/dashboard-latinbien/"},
+    {id:12, task:"Personalizacion campos para Lineas de Credito", cat:"Pagos", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"1/09/2026", end:"1/09/2026", progress:100, milestone:"Se personalizo plataforma para campos de medio de latinbien y se extrajo consulta en dashboard", notes:"https://latinbienti-sys.github.io/dashboard-latinbien/"},
+    {id:13, task:"TABLERO MOTOS", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"5/09/2026", end:"", progress:100, milestone:"Tablero de motos publicado", notes:"https://latinbienti-sys.github.io/dashboard-latinbien/"},
     {id:14, task:"API TESORO", cat:"Automatización", priority:"Inmediata", status:"No iniciada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
-    {id:15, task:"Caida odoo", cat:"Infraestructura", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"7/09/2026", end:"7/09/2026", milestone:"Caida por 20 minutos", notes:""},
-    {id:16, task:"Mensaje de cumpleaños falla", cat:"Marketing", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"8/09/2026", end:"8/09/2026", milestone:"Se realizaron pruebas del mensaje llegando sin problemas", notes:""},
-    {id:17, task:"Carga data farmabien", cat:"CRM/Integración", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"12/09/2026", end:"12/09/2026", milestone:"Carga a CRM", notes:""},
-    {id:18, task:"caida chatroom honda", cat:"Chatroom", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"11/09/2026", end:"12/09/2026", milestone:"Falla chatroom con duracion de 8 horas", notes:"Incidente de mayor impacto del mes"},
-    {id:19, task:"caida chatroom latinbien", cat:"Chatroom", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"12/09/2026", end:"12/09/2026", milestone:"Falla chatroom con duracion de 30 minutos", notes:""},
-    {id:20, task:"inventario latinbien", cat:"Almacén", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"16/09/2026", end:"17/09/2026", milestone:"Tablero de inventario con precios mas viejos en almacen", notes:"https://latinbienti-sys.github.io/latinb/"},
-    {id:21, task:"embudo de ventas latinbien", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"15/09/2026", end:"22/09/2026", milestone:"Tablero de embudo de ventas publicado", notes:"https://latinbienti-sys.github.io/embudoventas/"},
-    {id:22, task:"activacion 10 catalogo", cat:"Promociones", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"16/09/2026", end:"16/09/2026", milestone:"Catalogo con etiqueta de 10%", notes:""},
+    {id:15, task:"Caida odoo", cat:"Infraestructura", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"7/09/2026", end:"7/09/2026", progress:100, milestone:"Caida por 20 minutos", notes:""},
+    {id:16, task:"Mensaje de cumpleaños falla", cat:"Marketing", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"8/09/2026", end:"8/09/2026", progress:100, milestone:"Se realizaron pruebas del mensaje llegando sin problemas", notes:""},
+    {id:17, task:"Carga data farmabien", cat:"CRM/Integración", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"12/09/2026", end:"12/09/2026", progress:100, milestone:"Carga a CRM", notes:""},
+    {id:18, task:"caida chatroom honda", cat:"Chatroom", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"11/09/2026", end:"12/09/2026", progress:100, milestone:"Falla chatroom con duracion de 8 horas", notes:"Incidente de mayor impacto del mes"},
+    {id:19, task:"caida chatroom latinbien", cat:"Chatroom", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"12/09/2026", end:"12/09/2026", progress:100, milestone:"Falla chatroom con duracion de 30 minutos", notes:""},
+    {id:20, task:"inventario latinbien", cat:"Almacén", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"16/09/2026", end:"17/09/2026", progress:100, milestone:"Tablero de inventario con precios mas viejos en almacen", notes:"https://latinbienti-sys.github.io/latinb/"},
+    {id:21, task:"embudo de ventas latinbien", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"15/09/2026", end:"22/09/2026", progress:100, milestone:"Tablero de embudo de ventas publicado", notes:"https://latinbienti-sys.github.io/embudoventas/"},
+    {id:22, task:"activacion 10 catalogo", cat:"Promociones", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"16/09/2026", end:"16/09/2026", progress:100, milestone:"Catalogo con etiqueta de 10%", notes:""},
     {id:23, task:"migracion tableros", cat:"Reportes", priority:"Inmediata", status:"No iniciada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
-    {id:24, task:"tablero categoria motos y tecnologia", cat:"Reportes", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"17/09/2026", end:"24/09/2026", milestone:"Tablero de categoria motos y tecnologia publicado", notes:"https://latinbienti-sys.github.io/cierrelb/"},
-    {id:25, task:"sistema servicios", cat:"Desarrollo", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"16/09/2026", end:"", milestone:"", notes:""},
-    {id:26, task:"Revision Master casos puntuales pendientes y seguimiento", cat:"Soporte", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"29/09/2026", end:"29/09/2026", milestone:"Revision y seguimiento de casos puntuales en Odoo", notes:"https://latinbien.com/web#id=3539&cids=1&menu_id=356&action=519&active_id=6&model=project.task&view_type=form"}
+    {id:24, task:"tablero categoria motos y tecnologia", cat:"Reportes", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"17/09/2026", end:"24/09/2026", progress:100, milestone:"Tablero de categoria motos y tecnologia publicado", notes:"https://latinbienti-sys.github.io/cierrelb/"},
+    {id:25, task:"sistema servicios", cat:"Desarrollo", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"16/09/2026", end:"", progress:70, milestone:"", notes:""},
+    {id:26, task:"Revision Master casos puntuales pendientes y seguimiento", cat:"Soporte", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"29/09/2026", end:"29/09/2026", progress:100, milestone:"Revision y seguimiento de casos puntuales en Odoo", notes:"https://latinbien.com/web#id=3539&cids=1&menu_id=356&action=519&active_id=6&model=project.task&view_type=form"}
 ];
 
 
@@ -1703,11 +1708,20 @@ function renderDashboard(prefix, taskList, monthLabel, monthShort, catColorFn) {
         const priorityBadge = t.priority === "Inmediata" ? "badge-high" :
             (t.priority === "Media" ? "badge-medium" : "badge-low");
         const tr = document.createElement("tr");
+        let progressCell = "";
+        if (t.progress !== undefined) {
+            const pcol = t.progress >= 100 ? "#22c55e" : (t.progress >= 50 ? "#f59e0b" : "#ef4444");
+            progressCell = '<td><div style="display:flex;align-items:center;gap:8px;">' +
+                '<div style="flex:1;min-width:55px;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;">' +
+                '<div style="width:' + t.progress + '%;height:100%;background:' + pcol + ';"></div></div>' +
+                '<span style="font-size:0.75rem;color:#64748b;white-space:nowrap;">' + t.progress + '%</span></div></td>';
+        }
         tr.innerHTML = '<td>' + t.id + '</td>' +
             '<td>' + t.task + '</td>' +
             '<td>' + t.cat + '</td>' +
             '<td><span class="badge ' + priorityBadge + '">' + t.priority + '</span></td>' +
             '<td><span class="badge ' + statusBadge + '">' + t.status + '</span></td>' +
+            progressCell +
             '<td>' + (t.milestone || "—") + '</td>' +
             '<td>' + (t.notes || "—") + '</td>';
         fullBody.appendChild(tr);
@@ -1720,13 +1734,53 @@ function renderDashboard(prefix, taskList, monthLabel, monthShort, catColorFn) {
     const compPct = totalTasks ? Math.round((completed / totalTasks) * 100) : 0;
     const pendPct = 100 - compPct;
 
+    function openProgressSummary() {
+        const withP = taskList.filter(t => t.progress !== undefined);
+        if (!withP.length) return "";
+        const done = withP.filter(t => t.progress >= 100).length;
+        const open = withP.filter(t => t.status === "En curso");
+        const avgOpen = open.length ? Math.round(open.reduce((a, t) => a + t.progress, 0) / open.length) : 0;
+        return " &middot; Avance al 100%: <strong>" + done + "/" + withP.length + "</strong>" +
+            (open.length ? " &middot; Promedio en curso: <strong>" + avgOpen + "%</strong>" : "");
+    }
+
     const perfResumen = document.getElementById("perfResumen" + prefix);
     if (perfResumen) {
         perfResumen.innerHTML =
             "Tasa de cumplimiento global: <strong>" + compPct + "%</strong> &middot; " +
             "Pendientes: <strong>" + pendPct + "%</strong> &middot; " +
             "Urgencia inmediata completada: <strong>" + urgImmediatePct + "%</strong> &middot; " +
-            "Bloqueadas: <strong>" + Math.round((blocked / totalTasks) * 100) + "%</strong>.";
+            "Bloqueadas: <strong>" + Math.round((blocked / totalTasks) * 100) + "%</strong>" +
+            openProgressSummary();
+    }
+
+    // --- AVANCE DE TAREAS ABIERTAS (solo meses con campo progress) ---
+    const progCanvas = document.getElementById('chartProgreso' + prefix);
+    if (progCanvas) {
+        const openTasks = taskList
+            .filter(t => (t.status === "En curso" || t.status === "Bloqueada") && t.progress !== undefined)
+            .sort((a, b) => a.progress - b.progress);
+        new Chart(progCanvas, {
+            type: 'bar',
+            data: {
+                labels: openTasks.map(t => t.task),
+                datasets: [{
+                    label: '% avance',
+                    data: openTasks.map(t => t.progress),
+                    backgroundColor: openTasks.map(t => t.progress >= 50 ? "#22c55e" : "#ef4444"),
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                indexAxis: 'y',
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { beginAtZero: true, max: 100, ticks: { callback: function(v) { return v + "%"; } } }
+                }
+            }
+        });
     }
 
     new Chart(document.getElementById('chartCumplimiento' + prefix), {
