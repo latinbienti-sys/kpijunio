@@ -216,15 +216,15 @@
 <div class="container">
     <header class="header">
         <h1>Dashboard TI LATINBIEN</h1>
-        <p>Gesti&oacute;n de Tareas &middot; <span id="periodLabel">Septiembre 2026</span> &middot; <span id="totalTasks">26</span> tareas registradas</p>
+        <p>Gesti&oacute;n de Tareas &middot; <span id="periodLabel">Octubre 2026</span> &middot; <span id="totalTasks">42</span> tareas registradas</p>
     </header>
 
     <div class="tabs" role="tablist">
         <button class="tab-btn" data-tab="junio" role="tab">Junio 2026</button>
         <button class="tab-btn" data-tab="julio" role="tab">Julio 2026</button>
         <button class="tab-btn" data-tab="agosto" role="tab">Agosto 2026</button>
-        <button class="tab-btn active" data-tab="septiembre" role="tab">Septiembre 2026</button>
-        <button class="tab-btn" data-tab="octubre" role="tab">Octubre 2026</button>
+        <button class="tab-btn" data-tab="septiembre" role="tab">Septiembre 2026</button>
+        <button class="tab-btn active" data-tab="octubre" role="tab">Octubre 2026</button>
     </div>
 
     <div id="panel-junio" class="tab-panel">
@@ -896,7 +896,7 @@
     </div>
 
     <!-- PANEL SEPTIEMBRE 2026 -->
-    <div id="panel-septiembre" class="tab-panel active">
+    <div id="panel-septiembre" class="tab-panel">
 <div class="stats-grid" id="statsGridS">
         <div class="stat-card completed">
             <div class="stat-value" id="stat-completedS">--</div>
@@ -1049,8 +1049,81 @@
             <tbody></tbody>
         </table>
     </div>
+    <!-- SECCION DE ANALISIS OPERATIVO DE TI - SEPTIEMBRE -->
+    <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin: 30px 0; font-family: sans-serif; color: #334155;">
+        <h2 style="color: #1e3a5f; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
+            &#128202; Informe de Desempe&ntilde;o y An&aacute;lisis Operativo
+        </h2>
+    <!-- RELACION PORCENTUAL DE DESEMPENO -->
+    <div style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 24px;">
+        <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 6px;">&#128202; Relaci&oacute;n Porcentual de Desempe&ntilde;o y An&aacute;lisis Operativo</h3>
+        <p style="color:#64748b; font-size:0.8rem; margin-bottom: 14px;" id="perfResumenS">Calculando...</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Tasa de Cumplimiento Global</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplimientoS"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Cumplimiento por Urgencia (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplUrgenciaS"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Distribuci&oacute;n de Estados (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartAvanceS"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Avance de Tareas Abiertas (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartProgresoS"></canvas></div>
+            </div>
+        </div>
+    </div>
+
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; line-height: 1.6; font-size: 0.9rem;">
+
+            <!-- Bloque 1 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#128421; Tiempo de Actividad del Sistema</h3>
+                <p style="text-align: justify;"><strong>Disponibilidad de la Arquitectura:</strong> septiembre fue el mes con mayor impacto en disponibilidad del a&ntilde;o. Se registraron tres incidentes relevantes: el d&iacute;a <strong>07/09</strong> una ca&iacute;da de Odoo de <strong>20 minutos</strong>; el d&iacute;a <strong>11/09</strong> una falla del chatroom de Honda con duraci&oacute;n de <strong>8 horas</strong> (la de mayor impacto del mes, con afectaci&oacute;n directa al canal de atenci&oacute;n comercial); y el d&iacute;a <strong>12/09</strong> una ca&iacute;da del chatroom de Latinbien de <strong>30 minutos</strong>. En total se acumularon aproximadamente <strong>8.8 horas de inactividad</strong>, equivalentes a m&aacute;s del 98% de un d&iacute;a h&aacute;bil de ca&iacute;da efectiva. Fuera de esos eventos, la infraestructura oper&oacute; sin interrupciones, sosteniendo tableros de ventas, inventario y cierre.</p>
+            </div>
+
+            <!-- Bloque 2 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #22c55e;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#129309; Soporte y Satisfacci&oacute;n del Usuario</h3>
+                <p style="text-align: justify;">Se destaca el soporte al usuario final con tres acciones de atenci&oacute;n directa: <strong>1)</strong> pruebas del mensaje de cumplea&ntilde;os, que llegaron sin problemas a los destinatarios; <strong>2)</strong> revisi&oacute;n en Odoo de casos puntuales de Master con seguimiento completo el 29/09; y <strong>3)</strong> soporte al canal chatroom, que sufri&oacute; la ca&iacute;da de 8 horas en Honda y fue restituido. Persisten dos bloqueos que requieren escalamiento: <strong>Firmas Digitales</strong> (en espera de aprobaci&oacute;n) y <strong>Pruebas OCR</strong> (sin fecha de liberaci&oacute;n).</p>
+            </div>
+
+            <!-- Bloque 3 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #6366f1;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#9201; Tiempo de Respuesta a Incidentes</h3>
+                <p style="text-align: justify;">Los tres incidentes fueron registrados y cerrados dentro del mismo per&iacute;odo. <strong>1)</strong> Ca&iacute;da de Odoo del <strong>07/09</strong>, con duraci&oacute;n de <strong>20 minutos</strong>. <strong>2)</strong> Falla del chatroom Honda del <strong>11/09 al 12/09</strong>, con duraci&oacute;n de <strong>8 horas</strong>, el incidente de mayor criticidad por impacto en atenci&oacute;n al cliente. <strong>3)</strong> Falla del chatroom Latinbien del <strong>12/09</strong>, con duraci&oacute;n de <strong>30 minutos</strong>. <strong>Tiempo total de inactividad del mes: 8.8 horas</strong>, 5.9 veces mayor al registrado en agosto, lo que exige revisar la redundancia del servicio de chatroom.</p>
+            </div>
+
+            <!-- Bloque 4 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#9881; Configuraci&oacute;n y Personalizaci&oacute;n</h3>
+                <p style="text-align: justify;">El mes se distingui&oacute; por la personalizaci&oacute;n de plataforma: campos de medio de pago y l&iacute;neas de cr&eacute;dito en la plataforma, con extracci&oacute;n de consulta en dashboard; agregaci&oacute;n de planes de financiamiento de <strong>12 y 48 meses</strong> m&aacute;s el 30% habilitado en la p&aacute;gina web de Honda; configuraci&oacute;n del repetidor Honda; activaci&oacute;n de la etiqueta de 10% en cat&aacute;logos; y cierre del proceso de retirados con facturaci&oacute;n y migraci&oacute;n completadas. Se mantiene en construcci&oacute;n la app Latinbien y el sistema de servicios.</p>
+            </div>
+
+            <!-- Bloque 5 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #ec4899;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#128197; Gesti&oacute;n de Suscripciones y Marketing</h3>
+                <p style="text-align: justify;">Se publicaron <strong>cuatro tableros nuevos</strong> que ampl&iacute;an la capacidad de an&aacute;lisis comercial: tablero de motos, embudo de ventas Latinbien, tablero de categor&iacute;as motos y tecnolog&iacute;a, y tablero de inventario de almac&eacute;n con actualizaci&oacute;n de precios m&aacute;s antiguos. En marketing se activ&oacute; la promoci&oacute;n del 10% en cat&aacute;logo y se valid&oacute; el mensaje de cumplea&ntilde;os. Se mantiene la migraci&oacute;n de tableros y la API del Tesoro como frentes pendientes.</p>
+            </div>
+
+            <!-- Bloque 6 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #14b8a6;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#128274; Acceso y Cumplimiento de Seguridad</h3>
+                <p style="text-align: justify;">Permanecen abiertos dos frentes de seguridad y cumplimiento: <strong>Firmas Digitales</strong>, a la espera de aprobaci&oacute;n, y <strong>Pruebas OCR</strong>, bloqueada sin fecha de liberaci&oacute;n. Las credenciales del repetidor Honda fueron configuradas y se mantienen fuera de este informe p&uacute;blico por razones de seguridad. El 62% de cumplimiento global y el 71% en tareas de urgencia inmediata reflejan una operaci&oacute;n s&oacute;lida. El avance registrado en la hoja de seguimiento cierra las 16 tareas completadas al <strong>100%</strong>, mientras que las cuatro tareas en curso promedian <strong>69%</strong> de avance (Limpieza de campo profesional 80%, inventario Latinbien 80%, sistema de servicios 70% y app Latinbien 45%), lo que sit&uacute;a la carga real de trabajo en ejecuci&oacute;n y no en arranque. El &aacute;rea cr&iacute;tica se concentra en la disponibilidad del canal chatroom.</p>
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+
     <!-- PANEL OCTUBRE 2026 -->
-    <div id="panel-octubre" class="tab-panel">
+    <div id="panel-octubre" class="tab-panel active">
 <div class="stats-grid" id="statsGridO">
         <div class="stat-card completed">
             <div class="stat-value" id="stat-completedO">--</div>
@@ -1203,13 +1276,7 @@
             <tbody></tbody>
         </table>
     </div>
-    <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin: 30px 0; font-family: sans-serif; color: #334155;">
-        <h2 style="color: #1e3a5f; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">📊 Informe operativo — Octubre 2026</h2>
-        <p style="line-height:1.6;">La hoja de octubre registra 42 tareas: 13 completadas, 16 en curso, 6 bloqueadas, 6 no iniciadas y 1 sin estado. El tablero incorpora el avance porcentual disponible, las prioridades y los hitos; los indicadores de disponibilidad y tiempo de respuesta deben completarse con incidentes clasificados y horas exactas.</p>
-        <p style="line-height:1.6;">Los principales frentes del mes se concentran en pagos y facturación, tableros e inventario, configuración de sistemas, marketing/comercial y seguridad. Se mantienen como atención prioritaria las tareas inmediatas que no están completadas.</p>
-    </div>
-    </div>
-    <!-- SECCION DE ANALISIS OPERATIVO DE TI - SEPTIEMBRE -->
+    <!-- SECCION DE ANALISIS OPERATIVO DE TI - OCTUBRE -->
     <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin: 30px 0; font-family: sans-serif; color: #334155;">
         <h2 style="color: #1e3a5f; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
             &#128202; Informe de Desempe&ntilde;o y An&aacute;lisis Operativo
@@ -1217,23 +1284,23 @@
     <!-- RELACION PORCENTUAL DE DESEMPENO -->
     <div style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 24px;">
         <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 6px;">&#128202; Relaci&oacute;n Porcentual de Desempe&ntilde;o y An&aacute;lisis Operativo</h3>
-        <p style="color:#64748b; font-size:0.8rem; margin-bottom: 14px;" id="perfResumenS">Calculando...</p>
+        <p style="color:#64748b; font-size:0.8rem; margin-bottom: 14px;" id="perfResumenO">Calculando...</p>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
             <div style="background:white; border-radius:10px; padding:14px;">
                 <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Tasa de Cumplimiento Global</div>
-                <div style="position: relative; height: 200px;"><canvas id="chartCumplimientoS"></canvas></div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplimientoO"></canvas></div>
             </div>
             <div style="background:white; border-radius:10px; padding:14px;">
                 <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Cumplimiento por Urgencia (%)</div>
-                <div style="position: relative; height: 200px;"><canvas id="chartCumplUrgenciaS"></canvas></div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplUrgenciaO"></canvas></div>
             </div>
             <div style="background:white; border-radius:10px; padding:14px;">
                 <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Distribuci&oacute;n de Estados (%)</div>
-                <div style="position: relative; height: 200px;"><canvas id="chartAvanceS"></canvas></div>
+                <div style="position: relative; height: 200px;"><canvas id="chartAvanceO"></canvas></div>
             </div>
             <div style="background:white; border-radius:10px; padding:14px;">
                 <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Avance de Tareas Abiertas (%)</div>
-                <div style="position: relative; height: 200px;"><canvas id="chartProgresoS"></canvas></div>
+                <div style="position: relative; height: 200px;"><canvas id="chartProgresoO"></canvas></div>
             </div>
         </div>
     </div>
@@ -1244,37 +1311,37 @@
             <!-- Bloque 1 -->
             <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #3b82f6;">
                 <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#128421; Tiempo de Actividad del Sistema</h3>
-                <p style="text-align: justify;"><strong>Disponibilidad de la Arquitectura:</strong> septiembre fue el mes con mayor impacto en disponibilidad del a&ntilde;o. Se registraron tres incidentes relevantes: el d&iacute;a <strong>07/09</strong> una ca&iacute;da de Odoo de <strong>20 minutos</strong>; el d&iacute;a <strong>11/09</strong> una falla del chatroom de Honda con duraci&oacute;n de <strong>8 horas</strong> (la de mayor impacto del mes, con afectaci&oacute;n directa al canal de atenci&oacute;n comercial); y el d&iacute;a <strong>12/09</strong> una ca&iacute;da del chatroom de Latinbien de <strong>30 minutos</strong>. En total se acumularon aproximadamente <strong>8.8 horas de inactividad</strong>, equivalentes a m&aacute;s del 98% de un d&iacute;a h&aacute;bil de ca&iacute;da efectiva. Fuera de esos eventos, la infraestructura oper&oacute; sin interrupciones, sosteniendo tableros de ventas, inventario y cierre.</p>
+                <p style="text-align: justify;">No se registraron ca&iacute;das generales de infraestructura durante octubre. El &uacute;nico incidente con tiempo de resoluci&oacute;n documentado fue el <strong>TSK-277</strong> (tablero de inventario Odoo), solventado en <strong>2 horas</strong> el 02/10. En paralelo se atendi&oacute; la falla de impresi&oacute;n de garant&iacute;a del m&oacute;dulo Qweb, que presentaba una <strong>diferencia de 4 horas</strong> entre la hora impresa y la real (desfase de zona horaria, no indisponibilidad del sistema), y que contin&uacute;a en curso. En t&eacute;rminos de disponibilidad, octubre fue el mes m&aacute;s estable del a&ntilde;o: <strong>2 horas de inactividad documentada</strong>, frente a las 8.8 horas de septiembre.</p>
             </div>
 
             <!-- Bloque 2 -->
             <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #22c55e;">
                 <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#129309; Soporte y Satisfacci&oacute;n del Usuario</h3>
-                <p style="text-align: justify;">Se destaca el soporte al usuario final con tres acciones de atenci&oacute;n directa: <strong>1)</strong> pruebas del mensaje de cumplea&ntilde;os, que llegaron sin problemas a los destinatarios; <strong>2)</strong> revisi&oacute;n en Odoo de casos puntuales de Master con seguimiento completo el 29/09; y <strong>3)</strong> soporte al canal chatroom, que sufri&oacute; la ca&iacute;da de 8 horas en Honda y fue restituido. Persisten dos bloqueos que requieren escalamiento: <strong>Firmas Digitales</strong> (en espera de aprobaci&oacute;n) y <strong>Pruebas OCR</strong> (sin fecha de liberaci&oacute;n).</p>
+                <p style="text-align: justify;">Se atendieron los frentes de comunicaci&oacute;n y CRM: <strong>revisi&oacute;n de ManyChat</strong> para el canal comercial, incorporaci&oacute;n de <strong>preguntas de pagos al bot</strong>, activaci&oacute;n del <strong>bot comercial</strong> y actualizaci&oacute;n del CRM con el m&oacute;dulo obligatorio <strong>Win/Loss</strong> (motivos de p&eacute;rdida). El <strong>env&iacute;o masivo a funcionarios</strong> qued&oacute; al 100% de preparaci&oacute;n pero bloqueado a la espera de la data de los ejecutivos, y el <strong>Formulario Bera</strong> permanece bloqueado sin responsable asignado.</p>
             </div>
 
             <!-- Bloque 3 -->
             <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #6366f1;">
                 <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#9201; Tiempo de Respuesta a Incidentes</h3>
-                <p style="text-align: justify;">Los tres incidentes fueron registrados y cerrados dentro del mismo per&iacute;odo. <strong>1)</strong> Ca&iacute;da de Odoo del <strong>07/09</strong>, con duraci&oacute;n de <strong>20 minutos</strong>. <strong>2)</strong> Falla del chatroom Honda del <strong>11/09 al 12/09</strong>, con duraci&oacute;n de <strong>8 horas</strong>, el incidente de mayor criticidad por impacto en atenci&oacute;n al cliente. <strong>3)</strong> Falla del chatroom Latinbien del <strong>12/09</strong>, con duraci&oacute;n de <strong>30 minutos</strong>. <strong>Tiempo total de inactividad del mes: 8.8 horas</strong>, 5.9 veces mayor al registrado en agosto, lo que exige revisar la redundancia del servicio de chatroom.</p>
+                <p style="text-align: justify;">El &uacute;nico incidente con SLA medible fue el <strong>TSK-277</strong>, cerrado en <strong>2 horas</strong> el 02/10. La falla de impresi&oacute;n de garant&iacute;a (Qweb) se diagnostic&oacute; como un desfase de <strong>4 horas</strong> por configuraci&oacute;n horaria y sigue abierta, sin impacto en la operaci&oacute;n de inventario. No hubo incidentes de chatroom ni ca&iacute;das de Odoo en el mes, lo que confirma la correcci&oacute;n del riesgo detectado en septiembre. <strong>Tiempo total de inactividad documentada: 2 horas.</strong></p>
             </div>
 
             <!-- Bloque 4 -->
             <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #f59e0b;">
                 <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#9881; Configuraci&oacute;n y Personalizaci&oacute;n</h3>
-                <p style="text-align: justify;">El mes se distingui&oacute; por la personalizaci&oacute;n de plataforma: campos de medio de pago y l&iacute;neas de cr&eacute;dito en la plataforma, con extracci&oacute;n de consulta en dashboard; agregaci&oacute;n de planes de financiamiento de <strong>12 y 48 meses</strong> m&aacute;s el 30% habilitado en la p&aacute;gina web de Honda; configuraci&oacute;n del repetidor Honda; activaci&oacute;n de la etiqueta de 10% en cat&aacute;logos; y cierre del proceso de retirados con facturaci&oacute;n y migraci&oacute;n completadas. Se mantiene en construcci&oacute;n la app Latinbien y el sistema de servicios.</p>
+                <p style="text-align: justify;">Se complet&oacute; la configuraci&oacute;n comercial del mes: <strong>activaci&oacute;n del campo ES PROMO al 20%</strong>, pruebas exitosas de la <strong>promo 0% de inicial</strong>, actualizaci&oacute;n de la p&aacute;gina de Hondam&eacute;rida y del simulador Honda, y migraci&oacute;n de la subcuenta de Instagram a GohLevel. Quedan bloqueados dos frentes de configuraci&oacute;n: el <strong>cambio en el ciclo de pago</strong> y el <strong>Formulario Bera</strong>, ambos de urgencia inmediata y sin fecha de liberaci&oacute;n.</p>
             </div>
 
             <!-- Bloque 5 -->
             <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #ec4899;">
                 <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#128197; Gesti&oacute;n de Suscripciones y Marketing</h3>
-                <p style="text-align: justify;">Se publicaron <strong>cuatro tableros nuevos</strong> que ampl&iacute;an la capacidad de an&aacute;lisis comercial: tablero de motos, embudo de ventas Latinbien, tablero de categor&iacute;as motos y tecnolog&iacute;a, y tablero de inventario de almac&eacute;n con actualizaci&oacute;n de precios m&aacute;s antiguos. En marketing se activ&oacute; la promoci&oacute;n del 10% en cat&aacute;logo y se valid&oacute; el mensaje de cumplea&ntilde;os. Se mantiene la migraci&oacute;n de tableros y la API del Tesoro como frentes pendientes.</p>
+                <p style="text-align: justify;">Octubre concentr&oacute; el mayor volumen de tableros del a&ntilde;o: <strong>siete entregados</strong> (gastos, ingresos anuales, inventario Odoo, compromisos de pago, hist&oacute;rico de gastos de tecnolog&iacute;a, proyectos e indicadores de tecnolog&iacute;a) y <strong>seis en construcci&oacute;n</strong> (balance, flujo de caja, proyecci&oacute;n recibida diaria, ventas de contado, proveedor Bera y cartera de clientes). En marketing se ejecutaron el <strong>masivo de motos</strong> y la <strong>promo 0% de inicial</strong>, y se activ&oacute; el campo ES PROMO al 20%.</p>
             </div>
 
             <!-- Bloque 6 -->
             <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #14b8a6;">
                 <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#128274; Acceso y Cumplimiento de Seguridad</h3>
-                <p style="text-align: justify;">Permanecen abiertos dos frentes de seguridad y cumplimiento: <strong>Firmas Digitales</strong>, a la espera de aprobaci&oacute;n, y <strong>Pruebas OCR</strong>, bloqueada sin fecha de liberaci&oacute;n. Las credenciales del repetidor Honda fueron configuradas y se mantienen fuera de este informe p&uacute;blico por razones de seguridad. El 62% de cumplimiento global y el 71% en tareas de urgencia inmediata reflejan una operaci&oacute;n s&oacute;lida. El avance registrado en la hoja de seguimiento cierra las 16 tareas completadas al <strong>100%</strong>, mientras que las cuatro tareas en curso promedian <strong>69%</strong> de avance (Limpieza de campo profesional 80%, inventario Latinbien 80%, sistema de servicios 70% y app Latinbien 45%), lo que sit&uacute;a la carga real de trabajo en ejecuci&oacute;n y no en arranque. El &aacute;rea cr&iacute;tica se concentra en la disponibilidad del canal chatroom.</p>
+                <p style="text-align: justify;">Se mantiene pendiente la aprobaci&oacute;n de <strong>Firmas Digitales</strong> y la <strong>renovaci&oacute;n de ARCA</strong> contin&uacute;a en curso. El <strong>Formulario Bera</strong> sigue bloqueado y es el &uacute;nico frente de captaci&oacute;n sin avance. Con <strong>48% de cumplimiento global</strong> y <strong>46% en urgencia inmediata</strong>, octubre refleja una carga alta de trabajo nuevo (42 tareas, 18 m&aacute;s que septiembre) concentrada en tableros y cobranza, m&aacute;s que en incidencias.</p>
             </div>
 
         </div>
@@ -1447,6 +1514,52 @@ const tasksSeptiembre = [
 ];
 
 
+const tasksOctubre = [
+    {id:1, task:"Revision pasarela de pago", cat:"Pagos", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"22/06/2026", end:"", progress:20, milestone:"Se detecta en cuentas debidas no se ve la relacion mas si en vncidas", notes:""},
+    {id:2, task:"catalogo web multimoneda", cat:"Web", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:3, task:"Firmas Digitales", cat:"Seguridad", priority:"Baja", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"En espera de aprobacion", notes:""},
+    {id:4, task:"Limpieza Campo profesional", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"18/09/2026", end:"", progress:80, milestone:"visual data", notes:""},
+    {id:5, task:"app latinbien", cat:"Desarrollo", priority:"Baja", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", progress:45, milestone:"Se bloquea ya que se ejecutara por parte de Eureka", notes:""},
+    {id:6, task:"inventario latinbien", cat:"Motors/Inventario", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"21/08/2026", end:"", progress:80, milestone:"Se creo tablero de latinbien, se mantiene en construccion y seguimiento", notes:""},
+    {id:7, task:"Pruebas OCR", cat:"Desarrollo", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:8, task:"API TESORO", cat:"Automatización", priority:"Inmediata", status:"No iniciada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:9, task:"migracion tableros", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"28/10/2026", end:"", milestone:"", notes:""},
+    {id:10, task:"sistema servicios", cat:"Desarrollo", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"16/09/2026", end:"", progress:70, milestone:"", notes:""},
+    {id:11, task:"Actualizacion pagina hondamerida", cat:"Web", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"28/10/2026", end:"", milestone:"", notes:""},
+    {id:12, task:"Actualizacion simulador honda", cat:"Web", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"9/10/2026", end:"", milestone:"Auditar", notes:""},
+    {id:13, task:"agregar al bot preguntas pagos", cat:"Chatroom", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"25/10/2026", end:"", milestone:"", notes:""},
+    {id:14, task:"tablero de gastos", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"20/10/2026", end:"", milestone:"Tablero de gastos publicado", notes:"https://latinbienti-sys.github.io/egresos/gastos_razon_pagos.html"},
+    {id:15, task:"BALANCE TSK-282", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"28/10/2026", end:"", milestone:"Balance", notes:""},
+    {id:16, task:"tablero e ingresos anual", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"20/10/2026", end:"", milestone:"Tablero de ingresos anuales publicado", notes:"https://latinbienti-sys.github.io/historicoanual/facturacion_mensual.html"},
+    {id:17, task:"activacion campo es promo", cat:"Promociones", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"3/10/2026", end:"", milestone:"Activacion y configuracion del 20% en campo ES PROMO", notes:""},
+    {id:18, task:"TSK-278", cat:"Cobranza", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"2/10/2026", end:"", milestone:"Cuenta por cobrar por tecnologia y motos", notes:""},
+    {id:19, task:"TSK-069", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"Tablero / flujo de caja / descuento en ingresos", notes:""},
+    {id:20, task:"TSK-279", cat:"Cobranza", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"Anticipo de cliente por producto tecnologia y moto", notes:""},
+    {id:21, task:"Facturacion Multas TSK-268", cat:"Cobranza", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"Producto para facturar multa", notes:"Se espera respuesta del contador"},
+    {id:22, task:"TSK-277", cat:"Infraestructura", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"2/10/2026", end:"", milestone:"Tablero de inventario Odoo", notes:"Ticket solventado en 2 horas"},
+    {id:23, task:"Envio Masivo Funcionarios", cat:"Marketing", priority:"Baja", status:"Bloqueada", owner:"TI LATINBIEN", start:"3/10/2026", end:"", progress:100, milestone:"Se espera data de tareas por ejecutivos", notes:""},
+    {id:24, task:"Compromisos de pago Proyeccion Dia", cat:"Cobranza", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"6/10/2026", end:"", milestone:"Muestra tablero de compromisos", notes:""},
+    {id:25, task:"Proyeccion Recibida diaria", cat:"Cobranza", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"6/10/2026", end:"", milestone:"", notes:""},
+    {id:26, task:"Inventario Qweb Falla de hora", cat:"Infraestructura", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"6/10/2026", end:"", milestone:"Falla de impresion de garantia con diferencia de 4 horas", notes:""},
+    {id:27, task:"Renovacion ARCA", cat:"Seguridad", priority:"Baja", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:28, task:"Historico gastos tecnologia", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"3/10/2026", end:"", milestone:"Tablero de historico de gastos de tecnologia publicado", notes:"https://latinbienti-sys.github.io/hubservices/"},
+    {id:29, task:"Proyectos", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"5/10/2026", end:"", milestone:"Tablero de proyectos publicado", notes:"https://latinbienti-sys.github.io/preoject/"},
+    {id:30, task:"Carga Masiva Farmabien", cat:"CRM/Integración", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"7/10/2026", end:"", milestone:"Data cargada en CRM", notes:""},
+    {id:31, task:"Cambio en configuracion ciclo de pago", cat:"Pagos", priority:"Inmediata", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:32, task:"Ventas de Contado", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:33, task:"Promo 0% de inicial", cat:"Promociones", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"8/10/2026", end:"", milestone:"Pruebas realizadas con exito en promo 0% de inicial", notes:""},
+    {id:34, task:"Subcuenta de instagram", cat:"CRM/Integración", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"9/10/2026", end:"", milestone:"Se genero cambio a subcuenta GohLevel", notes:""},
+    {id:35, task:"Masivo Motos", cat:"Marketing", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"9/10/2026", end:"", milestone:"Envio masivo GohLevel", notes:""},
+    {id:36, task:"Tablero Indicadores Tecnologia", cat:"Reportes", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"9/10/2026", end:"", milestone:"Tablero de indicadores de tecnologia publicado", notes:""},
+    {id:37, task:"TSK 288 Modulo Obligatorio Win/Loss (Motivos de Perdida)", cat:"CRM/Integración", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"10/10/2026", end:"", milestone:"CRM actualizado", notes:""},
+    {id:38, task:"Revision Many chat", cat:"Chatroom", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"12/10/2026", end:"", milestone:"", notes:""},
+    {id:39, task:"Formulario Bera", cat:"CRM/Integración", priority:"Inmediata", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:40, task:"Tablero proveedor bera", cat:"Reportes", priority:"Baja", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:41, task:"Tablero cartera de clientes y entrada y salida", cat:"Reportes", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:"Prioridad no definida en la hoja; se asigna Media"},
+    {id:42, task:"Boot comercial", cat:"Chatroom", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"", end:"", milestone:"Bot comercial publicado", notes:""}
+];
+
+
 const statusColors = {
     "Completada": "#22c55e",
     "En curso": "#3b82f6",
@@ -1499,554 +1612,6 @@ function catColorOriginal(c) {
     return "#22c55e";
 }
 
-const tasksOctubre = [
-    {
-        "id": 1,
-        "task": "Revision pasarela de pago",
-        "cat": "Pagos",
-        "priority": "Media",
-        "status": "Bloqueada",
-        "owner": "TI LATINBIEN",
-        "start": "22/06/2026",
-        "end": "5/07/2026",
-        "milestone": "Se detecta en cuentas debidas no se ve la relacion mas si en vncidas",
-        "notes": "",
-        "progress": 20
-    },
-    {
-        "id": 2,
-        "task": "catalogo web multimoneda",
-        "cat": "Configuración",
-        "priority": "Media",
-        "status": "Bloqueada",
-        "owner": "TI LATINBIEN",
-        "start": "",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 0
-    },
-    {
-        "id": 3,
-        "task": "Firmas Digitales",
-        "cat": "Seguridad",
-        "priority": "Baja",
-        "status": "Bloqueada",
-        "owner": "TI LATINBIEN",
-        "start": "",
-        "end": "",
-        "milestone": "En espera de aprobacion",
-        "notes": "",
-        "progress": 0
-    },
-    {
-        "id": 4,
-        "task": "Limpieza Campo profesional",
-        "cat": "Configuración",
-        "priority": "Urgencia  Inmediata",
-        "status": "En curso",
-        "owner": "TI LATINBIEN",
-        "start": "18/09/2026",
-        "end": "",
-        "milestone": "visual data",
-        "notes": "",
-        "progress": 80
-    },
-    {
-        "id": 5,
-        "task": "app latinbien",
-        "cat": "Configuración",
-        "priority": "Baja",
-        "status": "Bloqueada",
-        "owner": "TI LATINBIEN",
-        "start": "",
-        "end": "",
-        "milestone": "Se bloquea ya que se ejecutara por parte de Eureka",
-        "notes": "",
-        "progress": 45
-    },
-    {
-        "id": 6,
-        "task": "inventario latinbien",
-        "cat": "Reportes",
-        "priority": "Urgencia  Inmediata",
-        "status": "En curso",
-        "owner": "TILATINBIEN",
-        "start": "21/08/2026",
-        "end": "",
-        "milestone": "Se creo tablero de latinbien se mantiene en construccion  y seguimiento",
-        "notes": "",
-        "progress": 80
-    },
-    {
-        "id": 7,
-        "task": "Pruebas OCR",
-        "cat": "Seguridad",
-        "priority": "Media",
-        "status": "En curso",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 50
-    },
-    {
-        "id": 8,
-        "task": "API TESORO",
-        "cat": "Pagos",
-        "priority": "Urgencia  Inmediata",
-        "status": "No iniciada",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 0
-    },
-    {
-        "id": 9,
-        "task": "migracion tableros",
-        "cat": "Reportes",
-        "priority": "Urgencia  Inmediata",
-        "status": "No iniciada",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 0
-    },
-    {
-        "id": 10,
-        "task": "sistema servicios",
-        "cat": "Configuración",
-        "priority": "Media",
-        "status": "En curso",
-        "owner": "",
-        "start": "16/09/2026",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 70
-    },
-    {
-        "id": 11,
-        "task": "Actualizacion pagina hondamerida",
-        "cat": "Configuración",
-        "priority": "Baja",
-        "status": "En curso",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 50
-    },
-    {
-        "id": 12,
-        "task": "Actualizacion simulador honda",
-        "cat": "Configuración",
-        "priority": "Baja",
-        "status": "Completada",
-        "owner": "",
-        "start": "9/10/2026",
-        "end": "9/10/2026",
-        "milestone": "Auditar",
-        "notes": "",
-        "progress": 100
-    },
-    {
-        "id": 13,
-        "task": "agregar al bot preguntas pagos",
-        "cat": "Pagos",
-        "priority": "Media",
-        "status": "No iniciada",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 0
-    },
-    {
-        "id": 14,
-        "task": "tablero de gastos",
-        "cat": "Pagos",
-        "priority": "Urgencia  Inmediata",
-        "status": "En curso",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "https://latinbienti-sys.github.io/egresos/gastos_razon_pagos.html",
-        "notes": "",
-        "progress": 50
-    },
-    {
-        "id": 15,
-        "task": "BALANCE TSK-282",
-        "cat": "Pagos",
-        "priority": "Urgencia  Inmediata",
-        "status": "No iniciada",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "Balance",
-        "notes": "",
-        "progress": 0
-    },
-    {
-        "id": 16,
-        "task": "tablero e ingresos anual",
-        "cat": "Pagos",
-        "priority": "Urgencia  Inmediata",
-        "status": "En curso",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "https://latinbienti-sys.github.io/historicoanual/facturacion_mensual.html",
-        "notes": "",
-        "progress": 50
-    },
-    {
-        "id": 17,
-        "task": "activacion campo es promo",
-        "cat": "Marketing",
-        "priority": "Urgencia  Inmediata",
-        "status": "Completada",
-        "owner": "",
-        "start": "3/10/2026",
-        "end": "3/10/2026",
-        "milestone": "Activaciony configuracion 20% campo es promo",
-        "notes": "",
-        "progress": 100
-    },
-    {
-        "id": 18,
-        "task": "TSK-278",
-        "cat": "Pagos",
-        "priority": "Urgencia  Inmediata",
-        "status": "En curso",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "CUENTA POR COBRAR POR TECNOLOGIA Y MOTOS",
-        "notes": "https://latinbien.com/web#id=3794&cids=1&menu_id=356&action=519&active_id=6&model=project.task&view_type=form",
-        "progress": 50
-    },
-    {
-        "id": 19,
-        "task": "TSK-069",
-        "cat": "Pagos",
-        "priority": "Urgencia  Inmediata",
-        "status": "En curso",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "TABLERO / FLUJO DE CAJA / DESCUENTO EN INGRESOS",
-        "notes": "https://latinbien.com/web#id=3576&cids=1&menu_id=356&action=519&active_id=6&model=project.task&view_type=form",
-        "progress": 50
-    },
-    {
-        "id": 20,
-        "task": "TSK-279",
-        "cat": "Pagos",
-        "priority": "Urgencia  Inmediata",
-        "status": "En curso",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "ANTICIPO DE CLIENTE POR PRODUCTO TECNOLOGIA Y MOTO",
-        "notes": "https://latinbien.com/web#id=3795&cids=1&menu_id=356&action=519&active_id=6&model=project.task&view_type=form",
-        "progress": 50
-    },
-    {
-        "id": 21,
-        "task": "Facturacion Multas TSK-268",
-        "cat": "Pagos",
-        "priority": "Urgencia  Inmediata",
-        "status": "En curso",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "PRODUCTOPARA FACTURAR MULTA",
-        "notes": "https://latinbien.com/web#id=3784&cids=1&menu_id=356&action=519&active_id=6&model=project.task&view_type=form sE ESPERA RESPUESTA CONTADOR",
-        "progress": 50
-    },
-    {
-        "id": 22,
-        "task": "TSK-277",
-        "cat": "Reportes",
-        "priority": "Urgencia  Inmediata",
-        "status": "Completada",
-        "owner": "",
-        "start": "2/10/2026",
-        "end": "2/10/2026",
-        "milestone": "TABLERO DE INVENTARIO  ODOO",
-        "notes": "https://latinbien.com/web#id=3793&cids=1&menu_id=356&action=519&active_id=6&model=project.task&view_type=form Ticket Solventado en 2 horas",
-        "progress": 100
-    },
-    {
-        "id": 23,
-        "task": "Envio Masivo Funcinoarios",
-        "cat": "Marketing",
-        "priority": "Baja",
-        "status": "Bloqueada",
-        "owner": "",
-        "start": "3/10/2026",
-        "end": "",
-        "milestone": "se espera tareas por ejecutivos",
-        "notes": "",
-        "progress": 100
-    },
-    {
-        "id": 24,
-        "task": "Compromisos de pago Proyeccion Dia",
-        "cat": "Pagos",
-        "priority": "Urgencia  Inmediata",
-        "status": "Completada",
-        "owner": "",
-        "start": "6/10/2026",
-        "end": "7/10/2026",
-        "milestone": "Muestra tablero compromiso",
-        "notes": "",
-        "progress": 100
-    },
-    {
-        "id": 25,
-        "task": "Proyeccion Recibida diaria",
-        "cat": "Reportes",
-        "priority": "Urgencia  Inmediata",
-        "status": "En curso",
-        "owner": "",
-        "start": "6/10/2026",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 50
-    },
-    {
-        "id": 26,
-        "task": "Inventario Qweb Falla  de hora",
-        "cat": "Reportes",
-        "priority": "Urgencia  Inmediata",
-        "status": "En curso",
-        "owner": "",
-        "start": "6/10/2026",
-        "end": "",
-        "milestone": "Falla de impresion de Garantia con diferencia de 4 horas",
-        "notes": "",
-        "progress": 50
-    },
-    {
-        "id": 27,
-        "task": "Renovacion aproarca",
-        "cat": "Soporte",
-        "priority": "Baja",
-        "status": "No iniciada",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 0
-    },
-    {
-        "id": 28,
-        "task": "Historico gastos tecnologia",
-        "cat": "Pagos",
-        "priority": "Urgencia  Inmediata",
-        "status": "Completada",
-        "owner": "",
-        "start": "3/10/2026",
-        "end": "4/10/2026",
-        "milestone": "https://latinbienti-sys.github.io/hubservices/",
-        "notes": "",
-        "progress": 100
-    },
-    {
-        "id": 29,
-        "task": "Proyectos",
-        "cat": "Reportes",
-        "priority": "Urgencia  Inmediata",
-        "status": "Completada",
-        "owner": "",
-        "start": "5/10/2026",
-        "end": "5/10/2026",
-        "milestone": "https://latinbienti-sys.github.io/preoject/    file:///C:/Users/yarleyc/Downloads/ti-indicadores%20(5).html",
-        "notes": "",
-        "progress": 100
-    },
-    {
-        "id": 30,
-        "task": "Carga Masiva Farmabien",
-        "cat": "Configuración",
-        "priority": "Baja",
-        "status": "Completada",
-        "owner": "",
-        "start": "7/10/2026",
-        "end": "8/10/2026",
-        "milestone": "Cargada data en CRM",
-        "notes": "",
-        "progress": 100
-    },
-    {
-        "id": 31,
-        "task": "Cambio en configuracion ciclo de pago",
-        "cat": "Pagos",
-        "priority": "Urgencia  Inmediata",
-        "status": "No iniciada",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 0
-    },
-    {
-        "id": 32,
-        "task": "Ventas de Contado",
-        "cat": "Pagos",
-        "priority": "Urgencia  Inmediata",
-        "status": "En curso",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 50
-    },
-    {
-        "id": 33,
-        "task": "Promo 0% de inicial",
-        "cat": "Marketing",
-        "priority": "Urgencia  Inmediata",
-        "status": "Completada",
-        "owner": "",
-        "start": "8/10/2026",
-        "end": "8/10/2026",
-        "milestone": "Pruebas realizadas con exito en promo 0% de inciial",
-        "notes": "",
-        "progress": 100
-    },
-    {
-        "id": 34,
-        "task": "Subcuenta de instagram",
-        "cat": "Marketing",
-        "priority": "Media",
-        "status": "Completada",
-        "owner": "",
-        "start": "9/10/2026",
-        "end": "9/10/2026",
-        "milestone": "Se genero cambio a subcuenta gohlevel",
-        "notes": "",
-        "progress": 100
-    },
-    {
-        "id": 35,
-        "task": "MAsivo Motos",
-        "cat": "Marketing",
-        "priority": "Baja",
-        "status": "Completada",
-        "owner": "",
-        "start": "9/10/2026",
-        "end": "9/10/2026",
-        "milestone": "Envio masivo Gohlevel",
-        "notes": "",
-        "progress": 100
-    },
-    {
-        "id": 36,
-        "task": "Tablero Indicadorees Tecnologia",
-        "cat": "Reportes",
-        "priority": "Media",
-        "status": "Completada",
-        "owner": "",
-        "start": "9/10/2026",
-        "end": "9/10/2026",
-        "milestone": "file:///C:/Users/yarleyc/Downloads/ti-indicadores%20(2).html#tendencia",
-        "notes": "",
-        "progress": 100
-    },
-    {
-        "id": 37,
-        "task": "TSK 288 Módulo Obligatorio Win/Loss (Motivos de Pérdida)",
-        "cat": "Configuración",
-        "priority": "Media",
-        "status": "Completada",
-        "owner": "",
-        "start": "10/10/2026",
-        "end": "13/10/2026",
-        "milestone": "CRM actualizado",
-        "notes": "",
-        "progress": 100
-    },
-    {
-        "id": 38,
-        "task": "Revision Many chat",
-        "cat": "Marketing",
-        "priority": "Urgencia  Inmediata",
-        "status": "En curso",
-        "owner": "",
-        "start": "12/10/2026",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 50
-    },
-    {
-        "id": 39,
-        "task": "Formulario Bera",
-        "cat": "Seguridad",
-        "priority": "Urgencia  Inmediata",
-        "status": "Bloqueada",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 0
-    },
-    {
-        "id": 40,
-        "task": "Tablero proveedor bera",
-        "cat": "Reportes",
-        "priority": "Baja",
-        "status": "En curso",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 50
-    },
-    {
-        "id": 41,
-        "task": "Tablero cartera de clientes y entrada y salida",
-        "cat": "Reportes",
-        "priority": "",
-        "status": "",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 0
-    },
-    {
-        "id": 42,
-        "task": "Boot comercial",
-        "cat": "Marketing",
-        "priority": "Urgencia  Inmediata",
-        "status": "Completada",
-        "owner": "",
-        "start": "",
-        "end": "",
-        "milestone": "",
-        "notes": "",
-        "progress": 100
-    }
-];
 function catColorExtended(c) {
     if (c === "Chatroom" || c === "Marcas") return "#ef4444";
     if (c === "Pagos" || c === "Motors/Inventario" || c === "Cobranza") return "#f59e0b";
@@ -2584,9 +2149,9 @@ function renderDashboard(prefix, taskList, monthLabel, monthShort, catColorFn) {
 // --- Pestanas ---
 const rendered = {};
 
-// Render de SEPTIEMBRE (pestana activa por defecto)
-rendered.septiembre = true;
-renderDashboard("S", tasksSeptiembre, "Septiembre 2026", "Sep", catColorExtended);
+// Render de OCTUBRE (pestana activa por defecto)
+rendered.octubre = true;
+renderDashboard("O", tasksOctubre, "Octubre 2026", "Oct", catColorExtended);
 
 function switchTab(tab) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
@@ -2597,8 +2162,8 @@ function switchTab(tab) {
     document.getElementById('panel-octubre').classList.toggle('active', tab === 'octubre');
     const monthMap = {junio: 'Junio 2026', julio: 'Julio 2026', agosto: 'Agosto 2026', septiembre: 'Septiembre 2026', octubre: 'Octubre 2026'};
     const taskCountMap = {junio: tasks.length, julio: tasksJulio.length, agosto: tasksAgosto.length, septiembre: tasksSeptiembre.length, octubre: tasksOctubre.length};
-    document.getElementById('periodLabel').textContent = monthMap[tab] || 'Septiembre 2026';
-    document.getElementById('totalTasks').textContent = (taskCountMap[tab] || tasksSeptiembre.length);
+    document.getElementById('periodLabel').textContent = monthMap[tab] || 'Octubre 2026';
+    document.getElementById('totalTasks').textContent = (taskCountMap[tab] || tasksOctubre.length);
     if (tab === 'julio' && !rendered.julio) {
         rendered.julio = true;
         requestAnimationFrame(function() {
@@ -2625,7 +2190,7 @@ function switchTab(tab) {
     }
 }
 document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', function() { switchTab(this.dataset.tab); }));
-switchTab('septiembre');
+switchTab('octubre');
 
 </script>
 </body>
