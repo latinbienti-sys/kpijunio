@@ -237,7 +237,7 @@
 <div class="container">
     <header class="header">
         <h1>Dashboard TI LATINBIEN</h1>
-        <p>Gesti&oacute;n de Tareas &middot; <span id="periodLabel">Octubre 2026</span> &middot; <span id="totalTasks">42</span> tareas registradas</p>
+        <p>Gesti&oacute;n de Tareas &middot; <span id="periodLabel">Noviembre 2026</span> &middot; <span id="totalTasks">23</span> tareas registradas</p>
         <div id="syncStatus" class="sync-status loading" role="status" aria-live="polite">
             <span class="sync-dot"></span>
             <span id="syncText">Leyendo Google Sheet…</span>
@@ -249,7 +249,8 @@
         <button class="tab-btn" data-tab="julio" role="tab">Julio 2026</button>
         <button class="tab-btn" data-tab="agosto" role="tab">Agosto 2026</button>
         <button class="tab-btn" data-tab="septiembre" role="tab">Septiembre 2026</button>
-        <button class="tab-btn active" data-tab="octubre" role="tab">Octubre 2026</button>
+        <button class="tab-btn" data-tab="octubre" role="tab">Octubre 2026</button>
+        <button class="tab-btn active" data-tab="noviembre" role="tab">Noviembre 2026</button>
     </div>
 
     <div id="panel-junio" class="tab-panel">
@@ -1373,6 +1374,233 @@
     </div>
 
     </div>
+
+    <!-- PANEL NOVIEMBRE 2026 -->
+    <div id="panel-noviembre" class="tab-panel">
+<div class="stats-grid" id="statsGridN">
+        <div class="stat-card completed">
+            <div class="stat-value" id="stat-completedN">--</div>
+            <div class="stat-label">Completadas</div>
+        </div>
+        <div class="stat-card in-progress">
+            <div class="stat-value" id="stat-inprogressN">--</div>
+            <div class="stat-label">En Curso</div>
+        </div>
+        <div class="stat-card pending">
+            <div class="stat-value" id="stat-pendingN">--</div>
+            <div class="stat-label">No Iniciadas</div>
+        </div>
+        <div class="stat-card blocked">
+            <div class="stat-value" id="stat-blockedN">--</div>
+            <div class="stat-label">Bloqueadas</div>
+        </div>
+        <div class="stat-card high">
+            <div class="stat-value" id="stat-highN">--</div>
+            <div class="stat-label">Urgencia Inmediata</div>
+        </div>
+        <div class="stat-card medium">
+            <div class="stat-value" id="stat-mediumN">--</div>
+            <div class="stat-label">Urgencia Media</div>
+        </div>
+        <div class="stat-card low">
+            <div class="stat-value" id="stat-lowN">--</div>
+            <div class="stat-label">Urgencia Baja</div>
+        </div>
+    </div>
+
+    <div class="alerts-banner" id="alertsBannerN">
+        <h2>&#9888; Alertas Cr&iacute;ticas &mdash; Prioridad Inmediata No Completadas</h2>
+        <div class="alerts-grid" id="alertsGridN"></div>
+        <div style="margin-top:12px; font-size:0.85rem; color:#991b1b; background:#fecaca; padding:10px 14px; border-radius:8px;">
+            <strong>&#9200; Impacto:</strong> <span id="alertImpactTextN">Calculando...</span>
+        </div>
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Estado de Tareas</div>
+                    <div class="chart-subtitle">Distribuci&oacute;n por estado actual</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartStatusN"></canvas>
+            </div>
+            <div class="legend-custom" id="legendStatusN"></div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Prioridad / Urgencia</div>
+                    <div class="chart-subtitle">Distribuci&oacute;n por nivel de urgencia</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartPriorityN"></canvas>
+            </div>
+            <div class="legend-custom" id="legendPriorityN"></div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Estado &times; Prioridad</div>
+                    <div class="chart-subtitle">Matriz de riesgo: cruce de dimensiones</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartHeatmapN"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Tendencia Semanal (Noviembre)</div>
+                    <div class="chart-subtitle">Tareas completadas por semana</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="chartTrendN"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card full-width">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Categor&iacute;as de Tareas</div>
+                    <div class="chart-subtitle">Distribuci&oacute;n por &aacute;rea funcional</div>
+                </div>
+            </div>
+            <div class="chart-wrapper large">
+                <canvas id="chartCategoriesN"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card full-width">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">L&iacute;nea de Tiempo &mdash; Tareas Cr&iacute;ticas</div>
+                    <div class="chart-subtitle">Gantt simplificado: tareas prioritarias con fechas</div>
+                </div>
+            </div>
+            <div class="chart-wrapper large">
+                <canvas id="chartGanttN"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <h3 style="margin-bottom: 16px; color: #1e293b;">&#9888; Tareas Cr&iacute;ticas &mdash; Acci&oacute;n Requerida</h3>
+        <table id="criticalTableN">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tarea</th>
+                    <th>Categor&iacute;a</th>
+                    <th>Prioridad</th>
+                    <th>Estado</th>
+                    <th>Inicio</th>
+                    <th>D&iacute;as sin avance</th>
+                    <th>Riesgo</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="table-card" style="margin-top: 24px;">
+        <h3 style="margin-bottom: 16px; color: #1e293b;">&#128203; Detalle Completo de Tareas</h3>
+        <table id="fullTableN">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tarea</th>
+                    <th>Categor&iacute;a</th>
+                    <th>Prioridad</th>
+                    <th>Estado</th>
+                    <th>Avance</th>
+                    <th>Hito</th>
+                    <th>Notas</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <!-- SECCION DE ANALISIS OPERATIVO DE TI - NOVIEMBRE -->
+    <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin: 30px 0; font-family: sans-serif; color: #334155;">
+        <h2 style="color: #1e3a5f; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
+            &#128202; Informe de Desempe&ntilde;o y An&aacute;lisis Operativo
+        </h2>
+    <!-- RELACION PORCENTUAL DE DESEMPENO -->
+    <div style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 24px;">
+        <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 6px;">&#128202; Relaci&oacute;n Porcentual de Desempe&ntilde;o y An&aacute;lisis Operativo</h3>
+        <p style="color:#64748b; font-size:0.8rem; margin-bottom: 14px;" id="perfResumenN">Calculando...</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Tasa de Cumplimiento Global</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplimientoN"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Cumplimiento por Urgencia (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartCumplUrgenciaN"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Distribuci&oacute;n de Estados (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartAvanceN"></canvas></div>
+            </div>
+            <div style="background:white; border-radius:10px; padding:14px;">
+                <div style="text-align:center; font-weight:600; color:#334155; margin-bottom:8px; font-size:0.85rem;">Avance de Tareas Abiertas (%)</div>
+                <div style="position: relative; height: 200px;"><canvas id="chartProgresoN"></canvas></div>
+            </div>
+        </div>
+    </div>
+
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; line-height: 1.6; font-size: 0.9rem;">
+
+            <!-- Bloque 1 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#128421; Tiempo de Actividad del Sistema</h3>
+                <p style="text-align: justify;">El corte de noviembre abre sin ca&iacute;das generales de infraestructura registradas. Se arrastra de octubre la falla de impresi&oacute;n de garant&iacute;a del m&oacute;dulo Qweb, con una <strong>diferencia de 4 horas</strong> entre la hora impresa y la real (desfase de zona horaria, no indisponibilidad del sistema), que contin&uacute;a en curso. En lo que va del mes no se registran ca&iacute;das de Odoo ni del chatroom.</p>
+            </div>
+
+            <!-- Bloque 2 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #22c55e;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#129309; Soporte y Satisfacci&oacute;n del Usuario</h3>
+                <p style="text-align: justify;">Se mantienen abiertos los frentes de comunicaci&oacute;n y CRM: <strong>revisi&oacute;n de ManyChat</strong> en curso, <strong>Formulario Bera</strong> bloqueado y el <strong>env&iacute;o masivo a funcionarios</strong> al 100% de preparaci&oacute;n pero bloqueado a la espera de la data de los ejecutivos. El bot comercial y el m&oacute;dulo Win/Loss no presentan incidencias nuevas en el mes.</p>
+            </div>
+
+            <!-- Bloque 3 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #6366f1;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#9201; Tiempo de Respuesta a Incidentes</h3>
+                <p style="text-align: justify;">Sin SLA nuevos registrados en noviembre. La falla de impresi&oacute;n del m&oacute;dulo Qweb sigue abierta y es el &uacute;nico incidente t&eacute;cnico heredado con diagn&oacute;stico documentado (4 horas de desfase). La revisi&oacute;n de la pasarela de pago contin&uacute;a bloqueada al 20% desde junio y la del cat&aacute;logo multimoneda permanece bloqueada sin avance.</p>
+            </div>
+
+            <!-- Bloque 4 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#9881; Configuraci&oacute;n y Personalizaci&oacute;n</h3>
+                <p style="text-align: justify;">El <strong>cambio en el ciclo de pago</strong> sigue bloqueado y el <strong>cat&aacute;logo web multimoneda</strong> no registra avance. La <strong>renovaci&oacute;n de ARCA</strong> contin&uacute;a en curso. En inventario, el tablero de Latinbien se mantiene al <strong>80%</strong> y la app Latinbien qued&oacute; bloqueada al <strong>45%</strong> porque se ejecutar&aacute; por parte de Eureka.</p>
+            </div>
+
+            <!-- Bloque 5 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #ec4899;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#128197; Gesti&oacute;n de Suscripciones y Marketing</h3>
+                <p style="text-align: justify;">El mes arranca con la construcci&oacute;n de tableros de cobranza y reportes: <strong>balance (TSK-282)</strong>, <strong>migraci&oacute;n de tableros</strong>, <strong>flujo de caja (TSK-069)</strong>, <strong>anticipo de cliente (TSK-279)</strong>, <strong>proyecci&oacute;n de recibida diaria</strong>, <strong>ventas de contado</strong>, <strong>proveedor Bera</strong> y <strong>cartera de clientes</strong>. En marketing, el env&iacute;o masivo a funcionarios sigue a la espera de data.</p>
+            </div>
+
+            <!-- Bloque 6 -->
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #14b8a6;">
+                <h3 style="color: #1e293b; font-size: 1.05rem; margin-bottom: 8px;">&#128274; Acceso y Cumplimiento de Seguridad</h3>
+                <p style="text-align: justify;"><strong>Firmas Digitales</strong> contin&uacute;a bloqueada a la espera de aprobaci&oacute;n y la <strong>renovaci&oacute;n de ARCA</strong> avanza sin fecha de cierre. Con <strong>4% de cumplimiento global</strong> y <strong>61% de las tareas en urgencia inmediata</strong>, noviembre refleja una carga heredada de octubre: <strong>14 tareas en curso y 7 bloqueadas</strong> sobre 23 registradas, m&aacute;s un &uacute;nico frente no iniciado (API Tesoro).</p>
+            </div>
+
+        </div>
+    </div>
+
+    </div>
 </div>
 
 <script src="sheet-sync.js"></script>
@@ -1583,6 +1811,32 @@ const tasksOctubre = [
     {id:40, task:"Tablero proveedor bera", cat:"Reportes", priority:"Baja", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
     {id:41, task:"Tablero cartera de clientes y entrada y salida", cat:"Reportes", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:"Prioridad no definida en la hoja; se asigna Media"},
     {id:42, task:"Boot comercial", cat:"Chatroom", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"", end:"", milestone:"Bot comercial publicado", notes:""}
+];
+
+const tasksNoviembre = [
+    {id:1, task:"Revision pasarela de pago", cat:"Pagos", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"22/06/2026", end:"5/07/2026", progress:20, milestone:"Se detecta en cuentas debidas no se ve la relacion mas si en vncidas", notes:""},
+    {id:2, task:"catalogo web multimoneda", cat:"Web", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:3, task:"Firmas Digitales", cat:"Seguridad", priority:"Baja", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"En espera de aprobacion", notes:""},
+    {id:4, task:"Limpieza Campo profesional", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"18/09/2026", end:"30/10/2026", progress:80, milestone:"visual data", notes:""},
+    {id:5, task:"app latinbien", cat:"Desarrollo", priority:"Baja", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", progress:45, milestone:"Se bloquea ya que se ejecutara por parte de Eureka", notes:""},
+    {id:6, task:"inventario latinbien", cat:"Motors/Inventario", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"21/08/2026", end:"", progress:80, milestone:"Se creo tablero de latinbien se mantiene en construccion y seguimiento", notes:""},
+    {id:7, task:"Pruebas OCR", cat:"Desarrollo", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:8, task:"API TESORO", cat:"Automatización", priority:"Inmediata", status:"No iniciada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:9, task:"migracion tableros", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"28/10/2026", end:"", milestone:"", notes:""},
+    {id:10, task:"BALANCE TSK-282", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"28/10/2026", end:"", milestone:"Balance", notes:""},
+    {id:11, task:"TSK-069", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"Tablero / flujo de caja / descuento en ingresos", notes:"https://latinbien.com/web#id=3576&cids=1&menu_id=356&action=519&active_id=6&model=project.task&view_type=form"},
+    {id:12, task:"TSK-279", cat:"Cobranza", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"Anticipo de cliente por producto tecnologia y moto", notes:"https://latinbien.com/web#id=3795&cids=1&menu_id=356&action=519&active_id=6&model=project.task&view_type=form"},
+    {id:13, task:"Facturacion Multas TSK-268", cat:"Cobranza", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"Producto para facturar multa", notes:"Se espera respuesta del contador"},
+    {id:14, task:"Envio Masivo Funcionarios", cat:"Marketing", priority:"Baja", status:"Bloqueada", owner:"TI LATINBIEN", start:"3/10/2026", end:"", progress:100, milestone:"Se espera tareas por ejecutivos", notes:""},
+    {id:15, task:"Proyeccion Recibida diaria", cat:"Cobranza", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"6/10/2026", end:"", milestone:"", notes:""},
+    {id:16, task:"Inventario Qweb Falla de hora", cat:"Infraestructura", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"6/10/2026", end:"", milestone:"Falla de impresion de garantia con diferencia de 4 horas", notes:""},
+    {id:17, task:"Renovacion ARCA", cat:"Seguridad", priority:"Baja", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:18, task:"Cambio en configuracion ciclo de pago", cat:"Pagos", priority:"Inmediata", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:19, task:"Ventas de Contado", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:20, task:"Revision Many chat", cat:"Chatroom", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"12/10/2026", end:"", milestone:"", notes:""},
+    {id:21, task:"Formulario Bera", cat:"CRM/Integración", priority:"Inmediata", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:22, task:"Tablero proveedor bera", cat:"Reportes", priority:"Baja", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
+    {id:23, task:"Tablero cartera de clientes y entrada y salida", cat:"Reportes", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:"Prioridad no definida en la hoja; se asigna Media"}
 ];
 
 
@@ -2178,7 +2432,8 @@ const MONTHS = {
     julio:      { prefix: 'J', arr: tasksJulio,      label: 'Julio 2026',      short: 'Jul' },
     agosto:     { prefix: 'A', arr: tasksAgosto,     label: 'Agosto 2026',     short: 'Ago' },
     septiembre: { prefix: 'S', arr: tasksSeptiembre, label: 'Septiembre 2026', short: 'Sep' },
-    octubre:    { prefix: 'O', arr: tasksOctubre,    label: 'Octubre 2026',    short: 'Oct' }
+    octubre:    { prefix: 'O', arr: tasksOctubre,    label: 'Octubre 2026',    short: 'Oct' },
+    noviembre:  { prefix: 'N', arr: tasksNoviembre, label: 'Noviembre 2026',  short: 'Nov' }
 };
 const rendered = {};
 
@@ -2210,7 +2465,7 @@ function renderPanel(prefix, list, label, short) {
 }
 
 function switchTab(tab) {
-    if (!MONTHS[tab]) tab = 'octubre';
+    if (!MONTHS[tab]) tab = 'noviembre';
     document.querySelectorAll('.tab-btn').forEach(function(b) {
         b.classList.toggle('active', b.dataset.tab === tab);
     });
@@ -2230,10 +2485,10 @@ document.querySelectorAll('.tab-btn').forEach(function(b) {
     b.addEventListener('click', function() { switchTab(this.dataset.tab); });
 });
 
-// Render inicial: Octubre 2026 (pestaña activa por defecto)
-rendered.octubre = true;
-renderPanel('O', tasksOctubre, 'Octubre 2026', 'Oct');
-switchTab('octubre');
+// Render inicial: Noviembre 2026 (pestaña activa por defecto)
+rendered.noviembre = true;
+renderPanel('N', tasksNoviembre, 'Noviembre 2026', 'Nov');
+switchTab('noviembre');
 
 // --- SINCRONIZACIÓN EN VIVO CON GOOGLE SHEET ---
 // La hoja es la fuente de los datos operativos. Si la lectura falla,
@@ -2271,8 +2526,8 @@ function syncFromSheet() {
             // Datos frescos: invalidar caché y repintar la pestaña visible.
             Object.keys(rendered).forEach(function(k) { delete rendered[k]; });
             const activeBtn = document.querySelector('.tab-btn.active');
-            const active = activeBtn ? activeBtn.dataset.tab : 'octubre';
-            const m = MONTHS[active] || MONTHS.octubre;
+            const active = activeBtn ? activeBtn.dataset.tab : 'noviembre';
+            const m = MONTHS[active] || MONTHS.noviembre;
             rendered[active] = true;
             renderPanel(m.prefix, m.arr, m.label, m.short);
             document.getElementById('periodLabel').textContent = m.label;

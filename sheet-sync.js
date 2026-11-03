@@ -25,7 +25,8 @@
         { key: 'julio',      gid: '265243238',  prefix: 'J', label: 'Julio 2026',      short: 'Jul', hasProgress: false, live: true  },
         { key: 'agosto',     gid: '1881944744', prefix: 'A', label: 'Agosto 2026',     short: 'Ago', hasProgress: false, live: true  },
         { key: 'septiembre', gid: '1054444465', prefix: 'S', label: 'Septiembre 2026', short: 'Sep', hasProgress: true,  live: true  },
-        { key: 'octubre',    gid: '1693460820', prefix: 'O', label: 'Octubre 2026',    short: 'Oct', hasProgress: true,  live: true  }
+        { key: 'octubre',    gid: '1693460820', prefix: 'O', label: 'Octubre 2026',    short: 'Oct', hasProgress: true,  live: true  },
+        { key: 'noviembre',  gid: '793616369',  prefix: 'N', label: 'Noviembre 2026',  short: 'Nov', hasProgress: true,  live: true  }
     ];
 
     // Patrones que nunca deben llegar al sitio público.

@@ -23,7 +23,8 @@ const ARRAYS = {
     julio: 'tasksJulio',
     agosto: 'tasksAgosto',
     septiembre: 'tasksSeptiembre',
-    octubre: 'tasksOctubre'
+    octubre: 'tasksOctubre',
+    noviembre: 'tasksNoviembre'
 };
 
 function readArray(html, name) {
