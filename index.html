@@ -210,6 +210,27 @@
         .tab-panel { display: none; }
         .tab-panel.active { display: block; }
 
+        /* Estado de sincronización con Google Sheet */
+        .sync-status {
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-top: 12px; padding: 5px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: #e8f0fb; font-size: 0.78rem; font-weight: 500;
+        }
+        .sync-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #fbbf24; box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.18);
+            flex: none;
+        }
+        .sync-status.ok .sync-dot { background: #22c55e; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2); }
+        .sync-status.warn .sync-dot { background: #f59e0b; }
+        .sync-status.err .sync-dot { background: #ef4444; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2); }
+        .sync-status.loading .sync-dot { animation: syncPulse 1.2s ease-in-out infinite; }
+        @keyframes syncPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+        @media (max-width: 600px) { .sync-status { font-size: 0.72rem; } }
+
     </style>
 </head>
 <body>
@@ -217,6 +238,10 @@
     <header class="header">
         <h1>Dashboard TI LATINBIEN</h1>
         <p>Gesti&oacute;n de Tareas &middot; <span id="periodLabel">Octubre 2026</span> &middot; <span id="totalTasks">42</span> tareas registradas</p>
+        <div id="syncStatus" class="sync-status loading" role="status" aria-live="polite">
+            <span class="sync-dot"></span>
+            <span id="syncText">Leyendo Google Sheet…</span>
+        </div>
     </header>
 
     <div class="tabs" role="tablist">
@@ -1350,6 +1375,7 @@
     </div>
 </div>
 
+<script src="sheet-sync.js"></script>
 <script>
 const tasks = [
     {id:1, task:"Revisar pasarela de pago", cat:"Pagos", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"11/06/2026", end:"11/06/2026", milestone:"Configuraci&oacute;n pasarela", notes:"Revisar pasarela de pago"},
@@ -1401,7 +1427,7 @@ const tasksJulio = [
     {id:5, task:"Membresia LAtinbien", cat:"Membresía", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"10/07/2026", end:"30/07/2026", milestone:"Se creo portal membresia integrado a facturacion erp", notes:""},
     {id:6, task:"Documentacion chatroom", cat:"Chatroom", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"19/06/2026", end:"20/07/2026", milestone:"Configuracion Bot para latinbien.com, activacion chatroom comercial", notes:""},
     {id:7, task:"Revision pagos Motors", cat:"Pagos", priority:"Baja", status:"Bloqueada", owner:"TI LATINBIEN", start:"10/06/2026", end:"", milestone:"", notes:""},
-    {id:8, task:"Automatizacion Banco Tesoro", cat:"Automatización", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"10/06/2026", end:"01/072026", milestone:"se agrego a portal de manera provisionañ", notes:""},
+    {id:8, task:"Automatizacion Banco Tesoro", cat:"Automatización", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"10/06/2026", end:"01/07/2026", milestone:"se agrego a portal de manera provisionañ", notes:""},
     {id:9, task:"Revision pasarela de pago", cat:"Pagos", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"22/06/2026", end:"5/07/2026", milestone:"Se detecta en cuentas debidas no se ve la relacion mas si en vncidas", notes:""},
     {id:10, task:"Chatroom comercial", cat:"Chatroom", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"19/06/2026", end:"10/07/2026", milestone:"Se completo chatbot para todos los casos de uso presentados esta 100% operativo", notes:""},
     {id:11, task:"Gohlevel configuracion", cat:"CRM/Integración", priority:"Baja", status:"En curso", owner:"TI LATINBIEN", start:"19/06/2026", end:"", milestone:"Revision y evaluacion, documentacion y pruebas para integracion con apichat para hondamerida", notes:"integrado queda probar con meta"},
@@ -1454,7 +1480,7 @@ const tasksAgosto = [
     {id:16, task:"Status precalificado", cat:"CRM/Integraci&oacute;n", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"4/08/2026", end:"4/08/2026", milestone:"Status en CRM habilitado para comercial", notes:""},
     {id:17, task:"CRM campo asesor LC", cat:"CRM/Integraci&oacute;n", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"1/08/2026", end:"3/08/2026", milestone:"Se agrego al CRM el campo asesor LC", notes:""},
     {id:18, task:"Proceso de Retirados", cat:"Soporte", priority:"Baja", status:"No iniciada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
-    {id:19, task:"Recibos imagen de LBM", cat:"Marketing", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"4/08/2026", end:"19/08/2026", milestone:"Se realizaron los cambios requeridos en el mes 3", notes:""},
+    {id:19, task:"Recibos imagen de LBM", cat:"Marketing", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"4/08/2026", end:"19/08/2026", milestone:"Se realizaron los cambios requeridos en el mes 3", notes:"Se realizaron los cmbios requeridos en el mes 3"},
     {id:20, task:"Simplificacion de Bot", cat:"Automatizaci&oacute;n", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"4/08/2026", end:"28/08/2026", milestone:"Se cargo bot para ADS motos", notes:""},
     {id:21, task:"Capacitacion Administracion Honda", cat:"Capacitaci&oacute;n", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"4/08/2026", end:"6/08/2026", milestone:"Capacitacion Karen", notes:""},
     {id:22, task:"Envio y preparacion data cobranza", cat:"Cobranza", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"8/08/2026", end:"8/08/2026", milestone:"Envio mensaje preventivo", notes:""},
@@ -1515,43 +1541,43 @@ const tasksSeptiembre = [
 
 
 const tasksOctubre = [
-    {id:1, task:"Revision pasarela de pago", cat:"Pagos", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"22/06/2026", end:"", progress:20, milestone:"Se detecta en cuentas debidas no se ve la relacion mas si en vncidas", notes:""},
+    {id:1, task:"Revision pasarela de pago", cat:"Pagos", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"22/06/2026", end:"5/07/2026", progress:20, milestone:"Se detecta en cuentas debidas no se ve la relacion mas si en vncidas", notes:""},
     {id:2, task:"catalogo web multimoneda", cat:"Web", priority:"Media", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
     {id:3, task:"Firmas Digitales", cat:"Seguridad", priority:"Baja", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"En espera de aprobacion", notes:""},
-    {id:4, task:"Limpieza Campo profesional", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"18/09/2026", end:"", progress:80, milestone:"visual data", notes:""},
+    {id:4, task:"Limpieza Campo profesional", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"18/09/2026", end:"30/10/2026", progress:80, milestone:"visual data", notes:""},
     {id:5, task:"app latinbien", cat:"Desarrollo", priority:"Baja", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", progress:45, milestone:"Se bloquea ya que se ejecutara por parte de Eureka", notes:""},
     {id:6, task:"inventario latinbien", cat:"Motors/Inventario", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"21/08/2026", end:"", progress:80, milestone:"Se creo tablero de latinbien, se mantiene en construccion y seguimiento", notes:""},
     {id:7, task:"Pruebas OCR", cat:"Desarrollo", priority:"Media", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
     {id:8, task:"API TESORO", cat:"Automatización", priority:"Inmediata", status:"No iniciada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
     {id:9, task:"migracion tableros", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"28/10/2026", end:"", milestone:"", notes:""},
-    {id:10, task:"sistema servicios", cat:"Desarrollo", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"16/09/2026", end:"", progress:70, milestone:"", notes:""},
-    {id:11, task:"Actualizacion pagina hondamerida", cat:"Web", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"28/10/2026", end:"", milestone:"", notes:""},
-    {id:12, task:"Actualizacion simulador honda", cat:"Web", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"9/10/2026", end:"", milestone:"Auditar", notes:""},
-    {id:13, task:"agregar al bot preguntas pagos", cat:"Chatroom", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"25/10/2026", end:"", milestone:"", notes:""},
+    {id:10, task:"sistema servicios", cat:"Desarrollo", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"16/09/2026", end:"15/10/2026", progress:70, milestone:"", notes:""},
+    {id:11, task:"Actualizacion pagina hondamerida", cat:"Web", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"28/10/2026", end:"28/10/2026", milestone:"", notes:""},
+    {id:12, task:"Actualizacion simulador honda", cat:"Web", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"9/10/2026", end:"9/10/2026", milestone:"Auditar", notes:""},
+    {id:13, task:"agregar al bot preguntas pagos", cat:"Chatroom", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"25/10/2026", end:"26/10/2026", milestone:"", notes:""},
     {id:14, task:"tablero de gastos", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"20/10/2026", end:"", milestone:"Tablero de gastos publicado", notes:"https://latinbienti-sys.github.io/egresos/gastos_razon_pagos.html"},
     {id:15, task:"BALANCE TSK-282", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"28/10/2026", end:"", milestone:"Balance", notes:""},
     {id:16, task:"tablero e ingresos anual", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"20/10/2026", end:"", milestone:"Tablero de ingresos anuales publicado", notes:"https://latinbienti-sys.github.io/historicoanual/facturacion_mensual.html"},
-    {id:17, task:"activacion campo es promo", cat:"Promociones", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"3/10/2026", end:"", milestone:"Activacion y configuracion del 20% en campo ES PROMO", notes:""},
-    {id:18, task:"TSK-278", cat:"Cobranza", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"2/10/2026", end:"", milestone:"Cuenta por cobrar por tecnologia y motos", notes:""},
+    {id:17, task:"activacion campo es promo", cat:"Promociones", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"3/10/2026", end:"3/10/2026", milestone:"Activacion y configuracion del 20% en campo ES PROMO", notes:""},
+    {id:18, task:"TSK-278", cat:"Cobranza", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"2/10/2026", end:"5/10/2026", milestone:"Cuenta por cobrar por tecnologia y motos", notes:""},
     {id:19, task:"TSK-069", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"Tablero / flujo de caja / descuento en ingresos", notes:""},
     {id:20, task:"TSK-279", cat:"Cobranza", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"Anticipo de cliente por producto tecnologia y moto", notes:""},
     {id:21, task:"Facturacion Multas TSK-268", cat:"Cobranza", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"Producto para facturar multa", notes:"Se espera respuesta del contador"},
-    {id:22, task:"TSK-277", cat:"Infraestructura", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"2/10/2026", end:"", milestone:"Tablero de inventario Odoo", notes:"Ticket solventado en 2 horas"},
+    {id:22, task:"TSK-277", cat:"Infraestructura", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"2/10/2026", end:"2/10/2026", milestone:"Tablero de inventario Odoo", notes:"Ticket solventado en 2 horas"},
     {id:23, task:"Envio Masivo Funcionarios", cat:"Marketing", priority:"Baja", status:"Bloqueada", owner:"TI LATINBIEN", start:"3/10/2026", end:"", progress:100, milestone:"Se espera data de tareas por ejecutivos", notes:""},
-    {id:24, task:"Compromisos de pago Proyeccion Dia", cat:"Cobranza", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"6/10/2026", end:"", milestone:"Muestra tablero de compromisos", notes:""},
+    {id:24, task:"Compromisos de pago Proyeccion Dia", cat:"Cobranza", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"6/10/2026", end:"7/10/2026", milestone:"Muestra tablero de compromisos", notes:""},
     {id:25, task:"Proyeccion Recibida diaria", cat:"Cobranza", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"6/10/2026", end:"", milestone:"", notes:""},
     {id:26, task:"Inventario Qweb Falla de hora", cat:"Infraestructura", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"6/10/2026", end:"", milestone:"Falla de impresion de garantia con diferencia de 4 horas", notes:""},
     {id:27, task:"Renovacion ARCA", cat:"Seguridad", priority:"Baja", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
-    {id:28, task:"Historico gastos tecnologia", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"3/10/2026", end:"", milestone:"Tablero de historico de gastos de tecnologia publicado", notes:"https://latinbienti-sys.github.io/hubservices/"},
-    {id:29, task:"Proyectos", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"5/10/2026", end:"", milestone:"Tablero de proyectos publicado", notes:"https://latinbienti-sys.github.io/preoject/"},
-    {id:30, task:"Carga Masiva Farmabien", cat:"CRM/Integración", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"7/10/2026", end:"", milestone:"Data cargada en CRM", notes:""},
+    {id:28, task:"Historico gastos tecnologia", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"3/10/2026", end:"4/10/2026", milestone:"Tablero de historico de gastos de tecnologia publicado", notes:"https://latinbienti-sys.github.io/hubservices/"},
+    {id:29, task:"Proyectos", cat:"Reportes", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"5/10/2026", end:"5/10/2026", milestone:"Tablero de proyectos publicado", notes:"https://latinbienti-sys.github.io/preoject/"},
+    {id:30, task:"Carga Masiva Farmabien", cat:"CRM/Integración", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"7/10/2026", end:"8/10/2026", milestone:"Data cargada en CRM", notes:""},
     {id:31, task:"Cambio en configuracion ciclo de pago", cat:"Pagos", priority:"Inmediata", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
     {id:32, task:"Ventas de Contado", cat:"Reportes", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
-    {id:33, task:"Promo 0% de inicial", cat:"Promociones", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"8/10/2026", end:"", milestone:"Pruebas realizadas con exito en promo 0% de inicial", notes:""},
-    {id:34, task:"Subcuenta de instagram", cat:"CRM/Integración", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"9/10/2026", end:"", milestone:"Se genero cambio a subcuenta GohLevel", notes:""},
-    {id:35, task:"Masivo Motos", cat:"Marketing", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"9/10/2026", end:"", milestone:"Envio masivo GohLevel", notes:""},
-    {id:36, task:"Tablero Indicadores Tecnologia", cat:"Reportes", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"9/10/2026", end:"", milestone:"Tablero de indicadores de tecnologia publicado", notes:""},
-    {id:37, task:"TSK 288 Modulo Obligatorio Win/Loss (Motivos de Perdida)", cat:"CRM/Integración", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"10/10/2026", end:"", milestone:"CRM actualizado", notes:""},
+    {id:33, task:"Promo 0% de inicial", cat:"Promociones", priority:"Inmediata", status:"Completada", owner:"TI LATINBIEN", start:"8/10/2026", end:"8/10/2026", milestone:"Pruebas realizadas con exito en promo 0% de inicial", notes:""},
+    {id:34, task:"Subcuenta de instagram", cat:"CRM/Integración", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"9/10/2026", end:"9/10/2026", milestone:"Se genero cambio a subcuenta GohLevel", notes:""},
+    {id:35, task:"Masivo Motos", cat:"Marketing", priority:"Baja", status:"Completada", owner:"TI LATINBIEN", start:"9/10/2026", end:"9/10/2026", milestone:"Envio masivo GohLevel", notes:""},
+    {id:36, task:"Tablero Indicadores Tecnologia", cat:"Reportes", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"9/10/2026", end:"9/10/2026", milestone:"Tablero de indicadores de tecnologia publicado", notes:""},
+    {id:37, task:"TSK 288 Modulo Obligatorio Win/Loss (Motivos de Perdida)", cat:"CRM/Integración", priority:"Media", status:"Completada", owner:"TI LATINBIEN", start:"10/10/2026", end:"13/10/2026", milestone:"CRM actualizado", notes:""},
     {id:38, task:"Revision Many chat", cat:"Chatroom", priority:"Inmediata", status:"En curso", owner:"TI LATINBIEN", start:"12/10/2026", end:"", milestone:"", notes:""},
     {id:39, task:"Formulario Bera", cat:"CRM/Integración", priority:"Inmediata", status:"Bloqueada", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
     {id:40, task:"Tablero proveedor bera", cat:"Reportes", priority:"Baja", status:"En curso", owner:"TI LATINBIEN", start:"", end:"", milestone:"", notes:""},
@@ -2147,50 +2173,125 @@ function renderDashboard(prefix, taskList, monthLabel, monthShort, catColorFn) {
 }
 
 // --- Pestanas ---
+const MONTHS = {
+    junio:      { prefix: '',  arr: tasks,           label: 'Junio 2026',      short: 'Jun' },
+    julio:      { prefix: 'J', arr: tasksJulio,      label: 'Julio 2026',      short: 'Jul' },
+    agosto:     { prefix: 'A', arr: tasksAgosto,     label: 'Agosto 2026',     short: 'Ago' },
+    septiembre: { prefix: 'S', arr: tasksSeptiembre, label: 'Septiembre 2026', short: 'Sep' },
+    octubre:    { prefix: 'O', arr: tasksOctubre,    label: 'Octubre 2026',    short: 'Oct' }
+};
 const rendered = {};
 
-// Render de OCTUBRE (pestana activa por defecto)
-rendered.octubre = true;
-renderDashboard("O", tasksOctubre, "Octubre 2026", "Oct", catColorExtended);
+const CHART_SUFFIXES = ['chartStatus', 'chartPriority', 'chartHeatmap', 'chartTrend', 'chartCategories',
+    'chartGantt', 'chartProgreso', 'chartCumplimiento', 'chartCumplUrgencia', 'chartAvance'];
+
+// Limpia un panel antes de volver a dibujarlo (evita gráficas y filas duplicadas).
+function clearPanel(prefix) {
+    CHART_SUFFIXES.forEach(function(id) {
+        const canvas = document.getElementById(id + prefix);
+        if (canvas && typeof Chart !== 'undefined' && Chart.getChart) {
+            const chart = Chart.getChart(canvas);
+            if (chart) chart.destroy();
+        }
+    });
+    ['alertsGrid', 'legendStatus', 'legendPriority'].forEach(function(id) {
+        const el = document.getElementById(id + prefix);
+        if (el) el.innerHTML = '';
+    });
+    const critical = document.querySelector('#criticalTable' + prefix + ' tbody');
+    if (critical) critical.innerHTML = '';
+    const full = document.querySelector('#fullTable' + prefix + ' tbody');
+    if (full) full.innerHTML = '';
+}
+
+function renderPanel(prefix, list, label, short) {
+    clearPanel(prefix);
+    renderDashboard(prefix, list, label, short, catColorExtended);
+}
 
 function switchTab(tab) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-    document.getElementById('panel-junio').classList.toggle('active', tab === 'junio');
-    document.getElementById('panel-julio').classList.toggle('active', tab === 'julio');
-    document.getElementById('panel-agosto').classList.toggle('active', tab === 'agosto');
-    document.getElementById('panel-septiembre').classList.toggle('active', tab === 'septiembre');
-    document.getElementById('panel-octubre').classList.toggle('active', tab === 'octubre');
-    const monthMap = {junio: 'Junio 2026', julio: 'Julio 2026', agosto: 'Agosto 2026', septiembre: 'Septiembre 2026', octubre: 'Octubre 2026'};
-    const taskCountMap = {junio: tasks.length, julio: tasksJulio.length, agosto: tasksAgosto.length, septiembre: tasksSeptiembre.length, octubre: tasksOctubre.length};
-    document.getElementById('periodLabel').textContent = monthMap[tab] || 'Octubre 2026';
-    document.getElementById('totalTasks').textContent = (taskCountMap[tab] || tasksOctubre.length);
-    if (tab === 'julio' && !rendered.julio) {
-        rendered.julio = true;
-        requestAnimationFrame(function() {
-            renderDashboard("J", tasksJulio, "Julio 2026", "Jul", catColorExtended);
-        });
-    }
-    if (tab === 'agosto' && !rendered.agosto) {
-        rendered.agosto = true;
-        requestAnimationFrame(function() {
-            renderDashboard("A", tasksAgosto, "Agosto 2026", "Ago", catColorExtended);
-        });
-    }
-    if (tab === 'septiembre' && !rendered.septiembre) {
-        rendered.septiembre = true;
-        requestAnimationFrame(function() {
-            renderDashboard("S", tasksSeptiembre, "Septiembre 2026", "Sep", catColorExtended);
-        });
-    }
-    if (tab === 'octubre' && !rendered.octubre) {
-        rendered.octubre = true;
-        requestAnimationFrame(function() {
-            renderDashboard("O", tasksOctubre, "Octubre 2026", "Oct", catColorExtended);
-        });
+    if (!MONTHS[tab]) tab = 'octubre';
+    document.querySelectorAll('.tab-btn').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.tab === tab);
+    });
+    document.querySelectorAll('.tab-panel').forEach(function(p) {
+        p.classList.toggle('active', p.id === 'panel-' + tab);
+    });
+    const m = MONTHS[tab];
+    document.getElementById('periodLabel').textContent = m.label;
+    document.getElementById('totalTasks').textContent = m.arr.length;
+    if (!rendered[tab]) {
+        rendered[tab] = true;
+        requestAnimationFrame(function() { renderPanel(m.prefix, m.arr, m.label, m.short); });
     }
 }
-document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', function() { switchTab(this.dataset.tab); }));
+
+document.querySelectorAll('.tab-btn').forEach(function(b) {
+    b.addEventListener('click', function() { switchTab(this.dataset.tab); });
+});
+
+// Render inicial: Octubre 2026 (pestaña activa por defecto)
+rendered.octubre = true;
+renderPanel('O', tasksOctubre, 'Octubre 2026', 'Oct');
 switchTab('octubre');
+
+// --- SINCRONIZACIÓN EN VIVO CON GOOGLE SHEET ---
+// La hoja es la fuente de los datos operativos. Si la lectura falla,
+// el dashboard sigue mostrando el último corte guardado en el HTML.
+function setSyncState(state, text) {
+    const box = document.getElementById('syncStatus');
+    const label = document.getElementById('syncText');
+    if (!box || !label) return;
+    box.className = 'sync-status ' + state;
+    label.textContent = text;
+}
+
+function syncFromSheet() {
+    if (!window.SheetSync) {
+        setSyncState('err', 'Sincronizador no disponible · mostrando último corte guardado');
+        return;
+    }
+    const live = SheetSync.TABS.filter(function(t) { return t.live; });
+    let ok = 0, fail = 0;
+    setSyncState('loading', 'Leyendo Google Sheet…');
+
+    Promise.all(live.map(function(tab) {
+        return SheetSync.fetchTab(tab.gid).then(function(rows) {
+            const month = MONTHS[tab.key];
+            const merged = SheetSync.merge(month.arr, rows, { hasProgress: tab.hasProgress });
+            if (!merged.length) throw new Error('hoja vacía');
+            month.arr.splice.apply(month.arr, [0, month.arr.length].concat(merged));
+            ok++;
+        }).catch(function(err) {
+            fail++;
+            console.warn('No se pudo sincronizar ' + tab.key + ': ' + err.message);
+        });
+    })).then(function() {
+        if (ok) {
+            // Datos frescos: invalidar caché y repintar la pestaña visible.
+            Object.keys(rendered).forEach(function(k) { delete rendered[k]; });
+            const activeBtn = document.querySelector('.tab-btn.active');
+            const active = activeBtn ? activeBtn.dataset.tab : 'octubre';
+            const m = MONTHS[active] || MONTHS.octubre;
+            rendered[active] = true;
+            renderPanel(m.prefix, m.arr, m.label, m.short);
+            document.getElementById('periodLabel').textContent = m.label;
+            document.getElementById('totalTasks').textContent = m.arr.length;
+        }
+        const now = new Date();
+        const hh = String(now.getHours()).padStart(2, '0');
+        const mm = String(now.getMinutes()).padStart(2, '0');
+        if (fail === 0) {
+            setSyncState('ok', 'Sincronizado con Google Sheet · ' + hh + ':' + mm);
+        } else if (ok > 0) {
+            setSyncState('warn', 'Sincronización parcial (' + ok + '/' + live.length + ') · ' + hh + ':' + mm);
+        } else {
+            setSyncState('err', 'Sin conexión a la hoja · mostrando último corte guardado');
+        }
+    });
+}
+
+syncFromSheet();
 
 </script>
 </body>
